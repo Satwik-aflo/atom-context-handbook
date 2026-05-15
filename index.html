@@ -3,44 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ATOM Context Handbook</title>
+  <title>ATOM Documentation Hub</title>
   <style>
     :root {
       color-scheme: light;
-      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-serif: Georgia, "Times New Roman", serif;
-      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-      --ink: #202327;
-      --muted: #5f676e;
-      --line: #d9dde2;
-      --paper: #f7f4ef;
-      --white: #ffffff;
-      --red: #b94a48;
+      --bg: #f4f6f8;
+      --paper: #ffffff;
+      --ink: #1f272d;
+      --muted: #60707a;
+      --line: #d9e1e7;
       --teal: #138a7e;
-      --green: #2f7d52;
+      --blue: #1769aa;
+      --red: #b94a48;
       --gold: #b7791f;
-      --shadow: 0 18px 45px rgba(32, 35, 39, 0.10);
+      --green: #2f7d52;
+      --shadow: 0 18px 48px rgba(31, 39, 45, 0.1);
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-width: 320px;
-      background: var(--paper);
+      background: var(--bg);
       color: var(--ink);
-      font-family: var(--font-sans);
-      line-height: 1.64;
+      font-family: var(--sans);
+      line-height: 1.55;
     }
-    a { color: inherit; }
-    code {
-      padding: 2px 5px;
-      border: 1px solid #d7dee8;
-      border-radius: 4px;
-      background: #eef2f7;
-      font-family: var(--font-mono);
-      font-size: 0.9em;
+
+    a {
+      color: inherit;
     }
-    strong { color: #111827; }
+
+    .shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 24px 88px;
+    }
+
     .topbar {
       position: sticky;
       top: 0;
@@ -49,75 +58,71 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      padding: 14px 26px;
-      border-bottom: 1px solid rgba(32, 35, 39, 0.14);
-      background: rgba(247, 244, 239, 0.94);
+      margin: -24px -24px 32px;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(31, 39, 45, 0.14);
+      background: rgba(244, 246, 248, 0.94);
       backdrop-filter: blur(18px);
     }
+
     .topbar strong {
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
     .topbar nav {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
       gap: 8px;
+      justify-content: flex-end;
     }
+
     .topbar a {
       padding: 7px 10px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: var(--white);
+      background: var(--paper);
       color: var(--muted);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 750;
       text-decoration: none;
     }
-    .page-shell {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 30px 24px 96px;
-    }
+
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
-      gap: 24px;
-      align-items: stretch;
-      margin-bottom: 26px;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 22px;
+      margin-bottom: 24px;
     }
+
     .hero-main,
-    .hero-aside,
-    .article-panel,
-    .rail-card,
-    .term-card {
+    .hero-side,
+    .panel,
+    .doc-card {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--white);
+      border-radius: 8px;
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
-    .hero-main { padding: 34px; }
-    .hero h1 {
-      max-width: 920px;
-      margin: 14px 0 16px;
-      font-family: var(--font-serif);
-      font-size: clamp(42px, 7vw, 86px);
-      line-height: 0.98;
-      letter-spacing: 0;
+
+    .hero-main {
+      padding: 38px;
     }
-    .hero p {
-      max-width: 790px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
+
+    .hero-side {
+      display: grid;
+      align-content: center;
+      gap: 14px;
+      padding: 24px;
     }
+
     .label {
       display: inline-flex;
       width: fit-content;
       align-items: center;
-      gap: 9px;
-      padding: 7px 10px;
+      gap: 8px;
+      padding: 6px 9px;
       border: 1px solid currentColor;
       border-radius: 999px;
       color: var(--teal);
@@ -126,1051 +131,371 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
     .label::before {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
       background: currentColor;
       content: "";
     }
-    .hero-aside {
-      display: grid;
-      align-content: center;
-      gap: 14px;
-      padding: 24px;
-      border-top: 6px solid var(--red);
-    }
-    .hero-aside h2 {
-      margin: 0;
-      font-family: var(--font-serif);
-      font-size: 28px;
-      line-height: 1.08;
-    }
-    .hero-aside p { margin: 0; color: var(--muted); }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .stat {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fbfcfd;
-    }
-    .stat strong {
-      display: block;
-      font-size: 28px;
-      line-height: 1;
-    }
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .toc-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0 0 26px;
-    }
-    .toc-strip a {
-      padding: 9px 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--white);
-      color: #394752;
-      font-size: 14px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .content-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
-      gap: 24px;
-      align-items: start;
-    }
-    .article-panel {
-      min-width: 0;
-      padding: 32px;
-    }
-    .article-section {
-      margin: 42px 0 16px;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
-    }
-    .article-section:first-child {
-      margin-top: 0;
-      border-top: 0;
-      padding-top: 0;
-    }
-    .intro-copy p {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 19px;
-    }
-    .section-kicker {
-      margin-bottom: 8px;
-      color: var(--red);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    h2 {
-      margin: 0 0 14px;
-      font-family: var(--font-serif);
-      font-size: clamp(30px, 4vw, 48px);
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
       line-height: 1.05;
       letter-spacing: 0;
     }
+
+    h1 {
+      max-width: 820px;
+      margin: 18px 0 16px;
+      font-size: clamp(42px, 7vw, 84px);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 36px;
+    }
+
     h3 {
-      margin: 0 0 8px;
-      font-family: var(--font-serif);
-      font-size: 24px;
-      line-height: 1.12;
-      letter-spacing: 0;
+      margin: 0 0 10px;
+      font-size: 25px;
     }
-    p { margin: 0 0 14px; }
-    .term-card {
-      margin: 14px 0;
-      padding: 18px;
-      box-shadow: none;
+
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
     }
-    .term-card p:last-child { margin-bottom: 0; }
-    .avoid-note {
-      margin-top: 12px;
-      padding: 9px 11px;
-      border-left: 4px solid var(--gold);
-      border-radius: 6px;
-      background: #fff7e8;
-      color: #8a560f;
-      font-size: 14px;
+
+    .hero p {
+      max-width: 780px;
+      font-size: 18px;
     }
-    .avoid-note span {
-      display: inline-block;
-      margin-right: 8px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
+
+    .metric {
+      display: grid;
+      gap: 4px;
+    }
+
+    .metric strong {
+      font-family: var(--serif);
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
       text-transform: uppercase;
     }
-    .rule-list {
-      margin: 0 0 20px;
-      padding-left: 22px;
+
+    .panel {
+      margin: 22px 0;
+      padding: 26px;
     }
-    .rule-list li { margin: 7px 0; }
-    .dialogue-block {
-      margin: 18px 0;
-      padding: 16px 18px;
-      border-left: 5px solid var(--teal);
-      border-radius: 0 8px 8px 0;
-      background: #f0f8f7;
-    }
-    .dialogue-block p { margin: 4px 0; }
-    .rail {
-      position: sticky;
-      top: 72px;
+
+    .doc-grid {
       display: grid;
-      gap: 14px;
-      max-height: calc(100vh - 92px);
-      overflow: auto;
-      padding-bottom: 6px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
     }
-    .rail-card {
-      padding: 18px;
+
+    .doc-card {
+      display: grid;
+      min-width: 0;
+      gap: 12px;
+      padding: 20px;
       box-shadow: none;
     }
-    .rail-card h2,
-    .rail-card h3 {
-      margin: 0 0 10px;
-      font-family: var(--font-serif);
-      font-size: 22px;
-      line-height: 1.1;
-    }
-    .rail-card p,
-    .rail-card li {
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .rail-card ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-    .rail-card a {
-      display: block;
-      padding: 5px 0;
-      border-bottom: 1px solid #edf0f3;
-      color: #394752;
-      font-size: 13px;
+
+    .doc-card a.title {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.05;
       text-decoration: none;
     }
-    .rail-card a:hover { color: var(--teal); }
-    .rail-card.accent { border-top: 6px solid var(--red); }
-    footer {
-      margin-top: 38px;
-      color: var(--muted);
+
+    .doc-card a.title:hover {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eef3f6;
+      color: #344550;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pill.public {
+      background: #e8f5ee;
+      color: var(--green);
+    }
+
+    .pill.source {
+      background: #e8f0f7;
+      color: var(--blue);
+    }
+
+    .pill.rule {
+      background: #fff4df;
+      color: var(--gold);
+    }
+
+    .doc-card .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .doc-card .actions a {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--blue);
       font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
     }
-    @media (max-width: 1040px) {
-      .hero, .content-grid { grid-template-columns: 1fr; }
-      .rail { position: static; max-height: none; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
     }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3f6;
+      color: #394752;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef3f6;
+      color: #21313a;
+      font-family: var(--mono);
+      font-size: 0.92em;
+    }
+
+    .note {
+      margin: 16px 0 0;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .note p {
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 640px) {
-      .topbar { align-items: flex-start; flex-direction: column; padding: 12px 14px; }
-      .topbar nav { justify-content: flex-start; }
-      .page-shell { padding: 18px 14px 72px; }
-      .hero-main, .hero-aside, .article-panel { padding: 20px; }
-      .stats-grid { grid-template-columns: 1fr; }
-    }
-    @media print {
-      body { background: #fff; }
-      .topbar, .rail, .toc-strip { display: none; }
-      .page-shell { max-width: none; padding: 0; }
-      .content-grid { display: block; }
-      .article-panel, .term-card, .hero-main, .hero-aside { box-shadow: none; }
-      .term-card, .dialogue-block { break-inside: avoid; }
+      .shell {
+        padding: 18px 14px 70px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        margin: -18px -14px 24px;
+        padding: 12px 14px;
+      }
+
+      .topbar nav {
+        justify-content: flex-start;
+      }
+
+      .hero-main,
+      .hero-side,
+      .panel {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <strong>ATOM Context Handbook</strong>
-    <nav aria-label="Major sections">
-      <a href="#language">Language</a>
-<a href="#relationships">Relationships</a>
-<a href="#example-dialogue">Example Dialogue</a>
-<a href="#flagged-ambiguities">Flagged Ambiguities</a>
-<a href="#missing-from-code">Missing From Code</a>
-    </nav>
-  </header>
+  <div class="shell">
+    <header class="topbar">
+      <strong>ATOM Documentation</strong>
+      <nav aria-label="Page sections">
+        <a href="#published">Published</a>
+        <a href="#rules">Rules</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </header>
 
-  <div class="page-shell">
     <section class="hero">
       <div class="hero-main">
-        <span class="label">Editorial Handbook</span>
-        <h1>ATOM domain language for blade inspection to repair closure.</h1>
-        <p>A durable reference for the product vocabulary, workflow boundaries, role accountability, and implementation gaps discovered during the grill session.</p>
-        <div class="stats-grid">
-          <div class="stat"><strong>55</strong><span>Glossary terms</span></div>
-          <div class="stat"><strong>4</strong><span>Workflow phases</span></div>
-          <div class="stat"><strong>108</strong><span>Tracked rules</span></div>
-        </div>
+        <span class="label">Documentation hub</span>
+        <h1>ATOM documentation index.</h1>
+        <p>A single public doorway for the generated ATOM reference pages. Every new public HTML artifact should be added here when it is published.</p>
       </div>
-      <aside class="hero-aside">
-        <h2>How to read this</h2>
-        <p>Start with Language for canonical terms, then Relationships for invariants, Example Dialogue for plain-English usage, and Missing From Code for implementation planning.</p>
+      <aside class="hero-side">
+        <div class="metric">
+          <strong>2</strong>
+          <span>Published reference pages</span>
+        </div>
+        <div class="metric">
+          <strong>1</strong>
+          <span>Hub to keep current</span>
+        </div>
+        <p>Base URL: <a href="https://satwik-aflo.github.io/atom-context-handbook/">satwik-aflo.github.io/atom-context-handbook</a></p>
       </aside>
     </section>
 
-    <nav class="toc-strip" aria-label="Document sections">
-      <a href="#language">Language</a>
-<a href="#relationships">Relationships</a>
-<a href="#example-dialogue">Example Dialogue</a>
-<a href="#flagged-ambiguities">Flagged Ambiguities</a>
-<a href="#missing-from-code">Missing From Code</a>
-    </nav>
+    <section id="published" class="panel">
+      <h2>Published Pages</h2>
+      <div class="doc-grid">
+        <article class="doc-card">
+          <div class="meta-row">
+            <span class="pill public">Public</span>
+            <span class="pill source">Editorial Handbook</span>
+          </div>
+          <a class="title" href="./context-handbook/">ATOM Context Handbook</a>
+          <p>The canonical domain handbook for ATOM language, role boundaries, retired terms, missing-from-code gaps, and the inspection-to-repair lifecycle.</p>
+          <div class="actions">
+            <a href="./context-handbook/">Open page</a>
+            <a href="https://github.com/Satwik-aflo/atom-context-handbook/blob/main/context-handbook/index.html">View source in Pages repo</a>
+          </div>
+        </article>
 
-    <div class="content-grid">
-      <main class="article-panel">
-        <section class="article-section intro-copy"><p>ATOM documents and governs the path from wind turbine <strong>Blade Evidence</strong> to repair execution and verified closure.</p></section>
-<p>ATOM documents and governs the path from wind turbine <strong>Blade Evidence</strong> to repair execution and verified closure.</p>
-<section class="article-section" id="language"><div class="section-kicker">Language</div><h2>Language</h2></section>
-<section class="term-card" id="blade-evidence"><h3>Blade Evidence</h3>
-<p>The complete image set, metadata, and annotations captured for a blade during a <strong>Blade Inspection</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Inspection Evidence, Blade Image, raw upload, inspection note</p>
-</section>
-<section class="term-card" id="required-blade-image-slot"><h3>Required Blade Image Slot</h3>
-<p>A numbered required image position for a <strong>Blade Inspection</strong> until field-specific view names are confirmed.</p>
-<p class="avoid-note"><span>Avoid</span>Fake view name, inspection note, optional upload</p>
-</section>
-<section class="term-card" id="inspector"><h3>Inspector</h3>
-<p>The on-site evidence capture role responsible for collecting complete <strong>Blade Evidence</strong> for assigned sites and turbines.</p>
-<p class="avoid-note"><span>Avoid</span>Pilot, SME, defect reviewer</p>
-</section>
-<section class="term-card" id="technician"><h3>Technician</h3>
-<p>The field execution role assigned to a <strong>Work Order</strong> to perform the work, upload <strong>Repair Evidence</strong>, and mark the work done pending <strong>Repair Review</strong> and <strong>Work Order Verification</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Inspector, SME, verifier, approver</p>
-</section>
-<section class="term-card" id="sme"><h3>SME</h3>
-<p>A remote subject-matter expert who performs <strong>Blade Reviews</strong> and <strong>Repair Reviews</strong>, creates <strong>Defect Annotations</strong>, and creates/submits <strong>Findings</strong> downstream with technical recommendations.</p>
-<p class="avoid-note"><span>Avoid</span>Site Manager, approver, technician, work order verifier</p>
-</section>
-<section class="term-card" id="finding"><h3>Finding</h3>
-<p>A formal defect finding explicitly created downstream by an <strong>SME</strong> from selected <strong>Defect Annotations</strong> in reviewed <strong>Blade Evidence</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Inspection Note, defect ticket, issue</p>
-</section>
-<section class="term-card" id="finding-status"><h3>Finding Status</h3>
-<p>The lifecycle status of a <strong>Finding</strong> from SME drafting through closure or archival.</p>
-<p class="avoid-note"><span>Avoid</span>Blade Review Status, Work Order Status, defect status</p>
-</section>
-<section class="term-card" id="blade-review"><h3>Blade Review</h3>
-<p>An <strong>SME</strong> review of all <strong>Blade Evidence</strong> for one blade on one turbine, started automatically when the corresponding <strong>Blade Inspection</strong> is submitted.</p>
-<p class="avoid-note"><span>Avoid</span>Image verification, inspection note, assigned review case</p>
-</section>
-<section class="term-card" id="blade-review-status"><h3>Blade Review Status</h3>
-<p>A status summarizing the SME review progress and completion for one <strong>Blade Review</strong>. It does not track downstream <strong>Finding</strong> creation.</p>
-<p class="avoid-note"><span>Avoid</span>Finding status, image verification status, blade verified</p>
-</section>
-<section class="term-card" id="image-review-status"><h3>Image Review Status</h3>
-<p>The SME completion status for one image inside a <strong>Blade Review</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Defect Annotation, Finding status, Blade Inspection Status</p>
-</section>
-<section class="term-card" id="sme-review-queue"><h3>SME Review Queue</h3>
-<p>The set of automatically started <strong>Blade Reviews</strong> available to the <strong>SMEs</strong> assigned to a <strong>Site</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>SME assignment, review case owner, assigned review ticket</p>
-</section>
-<section class="term-card" id="claim-blade-review"><h3>Claim Blade Review</h3>
-<p>The action where an <strong>SME</strong> begins a <strong>Blade Review</strong>, making that <strong>SME</strong> the active reviewer and preventing other <strong>SMEs</strong> from working on the same review at the same time.</p>
-<p class="avoid-note"><span>Avoid</span>Operational assignment, Finding Approval, Work Order assignment</p>
-</section>
-<section class="term-card" id="release-blade-review-claim"><h3>Release Blade Review Claim</h3>
-<p>The action that removes the active <strong>SME</strong> claim from a <strong>Blade Review</strong> so another assigned <strong>SME</strong> can claim it.</p>
-<p class="avoid-note"><span>Avoid</span>Reopen Finding, Inspection Return, Work Order reassignment</p>
-</section>
-<section class="term-card" id="defect-annotation"><h3>Defect Annotation</h3>
-<p>A marked image region and classification created during a <strong>Blade Review</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Defect, Finding</p>
-</section>
-<section class="term-card" id="create-finding"><h3>Create Finding</h3>
-<p>The downstream <strong>SME</strong> action that turns selected <strong>Defect Annotations</strong> from reviewed <strong>Blade Evidence</strong> into a formal <strong>Finding</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Automatic finding creation, Defect Annotation, Finding Approval</p>
-</section>
-<section class="term-card" id="no-findings"><h3>No Findings</h3>
-<p>A result meaning no formal <strong>Findings</strong> exist after reviewed <strong>Blade Evidence</strong> has gone through the downstream Finding creation path.</p>
-<p class="avoid-note"><span>Avoid</span>Verified without defects, closed</p>
-</section>
-<section class="term-card" id="project-manager"><h3>Project Manager</h3>
-<p>A programme coordinator who manages inspection and repair workflow across one or more sites.</p>
-<p class="avoid-note"><span>Avoid</span>Site Manager, site assignee</p>
-</section>
-<section class="term-card" id="managed-site"><h3>Managed Site</h3>
-<p>A site within a <strong>Project Manager</strong>'s coordination scope.</p>
-<p class="avoid-note"><span>Avoid</span>Assigned site</p>
-</section>
-<section class="term-card" id="site-manager"><h3>Site Manager</h3>
-<p>The site-level operational authority for a wind site, also called a Site In-charge in Indian O&amp;M operations. The product role remains <code>SITE_MANAGER</code>.</p>
-<p class="avoid-note"><span>Avoid</span>Project Manager, programme coordinator, site assignee</p>
-</section>
-<section class="term-card" id="admin"><h3>Admin</h3>
-<p>A company-level operational administrator responsible for tenant setup, users, sites, and fallback workflow actions inside their company.</p>
-<p class="avoid-note"><span>Avoid</span>SME, Site Manager, Project Manager, normal workflow owner</p>
-</section>
-<section class="term-card" id="super-admin"><h3>Super Admin</h3>
-<p>The Aflo platform governance role responsible for onboarding companies, platform-level configuration, reference data, and cross-company access setup.</p>
-<p class="avoid-note"><span>Avoid</span>Admin, customer approver, workflow owner</p>
-</section>
-<section class="term-card" id="company"><h3>Company</h3>
-<p>The tenant boundary for a wind asset owner, ISP/O&amp;M provider, or Aflo-owned service organization whose users and data are scoped together.</p>
-<p class="avoid-note"><span>Avoid</span>Site, customer, client, account</p>
-</section>
-<section class="term-card" id="site"><h3>Site</h3>
-<p>A wind farm or wind power plant location containing a fleet of turbines.</p>
-<p class="avoid-note"><span>Avoid</span>Company, project, account, Work Order</p>
-</section>
-<section class="term-card" id="turbine"><h3>Turbine</h3>
-<p>A single wind turbine generator within a <strong>Site</strong>. <code>WTG</code> is acceptable as a field label or industry abbreviation, but <strong>Turbine</strong> is the product term.</p>
-<p class="avoid-note"><span>Avoid</span>Site, blade, Work Order</p>
-</section>
-<section class="term-card" id="blade"><h3>Blade</h3>
-<p>A physical blade on a <strong>Turbine</strong>, usually identified as Blade A, Blade B, or Blade C.</p>
-<p class="avoid-note"><span>Avoid</span>Turbine, Finding, Work Order</p>
-</section>
-<section class="term-card" id="turbine-inspection"><h3>Turbine Inspection</h3>
-<p>The inspection pass for one <strong>Turbine</strong>, normally made up of one <strong>Blade Inspection</strong> for each blade on that turbine.</p>
-<p class="avoid-note"><span>Avoid</span>Blade Review, Work Order, Site inspection</p>
-</section>
-<section class="term-card" id="blade-inspection"><h3>Blade Inspection</h3>
-<p>The <strong>Inspector</strong> field inspection pass for one <strong>Blade</strong> on one <strong>Turbine</strong>, producing <strong>Blade Evidence</strong> for <strong>SME</strong> review.</p>
-<p class="avoid-note"><span>Avoid</span>Blade Review, Finding, inspection note</p>
-</section>
-<section class="term-card" id="blade-inspection-status"><h3>Blade Inspection Status</h3>
-<p>A status summarizing Inspector capture and submission progress for one <strong>Blade Inspection</strong>. It only describes whether the required <strong>Blade Evidence</strong> has been uploaded and submitted; it does not describe defects or <strong>Findings</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Blade Review Status, No Findings, Findings Present, auto-completed inspection</p>
-</section>
-<section class="term-card" id="submit-blade-inspection"><h3>Submit Blade Inspection</h3>
-<p>The Inspector action that confirms the uploaded <strong>Blade Evidence</strong> is correct and ready for <strong>SME</strong> review.</p>
-<p class="avoid-note"><span>Avoid</span>Auto-complete, Finding submission, SME submission</p>
-</section>
-<section class="term-card" id="inspection-return"><h3>Inspection Return</h3>
-<p>An operational action that sends a submitted <strong>Blade Inspection</strong> back to the <strong>Inspector</strong> for correction with remarks when the <strong>Blade Evidence</strong> is not acceptable.</p>
-<p class="avoid-note"><span>Avoid</span>SME correction request, Blade Review rejection, Finding rejection</p>
-</section>
-<section class="term-card" id="inspection-remarks"><h3>Inspection Remarks</h3>
-<p>Comments attached to a <strong>Blade Inspection</strong> or <strong>Inspection Return</strong> explaining evidence quality issues or inspection process notes.</p>
-<p class="avoid-note"><span>Avoid</span>Defect Annotation, Finding, SME recommendation</p>
-</section>
-<section class="term-card" id="completed-blade-inspection"><h3>Completed Blade Inspection</h3>
-<p>A <strong>Blade Inspection</strong> where the Inspector has uploaded all three required blade images for that <strong>Blade</strong> and submitted the <strong>Blade Inspection</strong> for <strong>SME</strong> review.</p>
-<p class="avoid-note"><span>Avoid</span>Upload-only complete, Blade Review completed, verified blade, Finding</p>
-</section>
-<section class="term-card" id="completed-turbine-inspection"><h3>Completed Turbine Inspection</h3>
-<p>A derived completion state for a <strong>Turbine Inspection</strong> when every expected <strong>Blade Inspection</strong> for that <strong>Turbine</strong> is complete.</p>
-<p class="avoid-note"><span>Avoid</span>Separate turbine submission, Completed Blade Review, Turbine Review, verified turbine</p>
-</section>
-<section class="term-card" id="turbine-inspection-status"><h3>Turbine Inspection Status</h3>
-<p>A derived UI status summarizing the <strong>Blade Inspections</strong> for a <strong>Turbine</strong>. It is not a separate domain object, and it surfaces returned blade inspections.</p>
-<p class="avoid-note"><span>Avoid</span>Turbine Review Status, inspection case, inspection record</p>
-</section>
-<section class="term-card" id="completed-blade-review"><h3>Completed Blade Review</h3>
-<p>A <strong>Blade Review</strong> where every required image has <strong>Image Review Status</strong> <code>Review Complete</code>. A completed review does not require formal <strong>Findings</strong>, and <strong>Defect Annotations</strong> do not need to be attached to <strong>Findings</strong> at review completion.</p>
-<p class="avoid-note"><span>Avoid</span>Completed Blade Inspection, closure review, Work Order Verification</p>
-</section>
-<section class="term-card" id="blade-review-rollup"><h3>Blade Review Rollup</h3>
-<p>A derived UI status summarizing the expected <strong>Blade Reviews</strong> for a <strong>Turbine</strong>. It is not a separate domain object.</p>
-<p class="avoid-note"><span>Avoid</span>Turbine Review, Turbine Review Status, review case, review record</p>
-</section>
-<section class="term-card" id="finding-approval"><h3>Finding Approval</h3>
-<p>An operational governance decision that accepts or rejects a submitted <strong>Finding</strong> for action. The normal owner is the <strong>Site Manager</strong>, with <strong>Project Manager</strong> and <strong>Admin</strong> as fallback or coordination roles.</p>
-<p class="avoid-note"><span>Avoid</span>SME approval, technical approval</p>
-</section>
-<section class="term-card" id="changes-requested"><h3>Changes Requested</h3>
-<p>A <strong>Finding</strong> status meaning the operational approver returned the submitted <strong>Finding</strong> to the <strong>SME</strong> for edits and resubmission.</p>
-<p class="avoid-note"><span>Avoid</span>Rejected terminal, Finding Approval, archived finding</p>
-</section>
-<section class="term-card" id="archived-finding"><h3>Archived Finding</h3>
-<p>A terminal <strong>Finding</strong> state for duplicates, accidental submissions, or invalid Findings that should not continue through the workflow.</p>
-<p class="avoid-note"><span>Avoid</span>Changes Requested, rejected for edits, deleted finding</p>
-</section>
-<section class="term-card" id="work-order"><h3>Work Order</h3>
-<p>An execution record that groups one or more approved <strong>Findings</strong> into assigned field work, an <strong>Operational Decision</strong>, <strong>Repair Evidence</strong>, <strong>Repair Review</strong>, and <strong>Work Order Verification</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Action Case, Closure Review</p>
-</section>
-<section class="term-card" id="work-order-status"><h3>Work Order Status</h3>
-<p>The lifecycle status of a <strong>Work Order</strong> from creation through closure or archival.</p>
-<p class="avoid-note"><span>Avoid</span>Finding Status, Blade Review Status, Turbine Health Status</p>
-</section>
-<section class="term-card" id="work-order-creation"><h3>Work Order Creation</h3>
-<p>The operational action that creates a <strong>Work Order</strong> from one or more approved <strong>Findings</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Project Manager-only creation, Action Case creation</p>
-</section>
-<section class="term-card" id="repair-evidence"><h3>Repair Evidence</h3>
-<p>Pictures and proof uploaded against a <strong>Work Order</strong> to show the completed field work.</p>
-<p class="avoid-note"><span>Avoid</span>Blade Evidence, Blade Inspection, Work Order Verification</p>
-</section>
-<section class="term-card" id="repair-review"><h3>Repair Review</h3>
-<p>An <strong>SME</strong> technical review of <strong>Repair Evidence</strong> before final operational sign-off on a <strong>Work Order</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Turbine Review, Blade Review, Work Order Verification</p>
-</section>
-<section class="term-card" id="repair-review-status"><h3>Repair Review Status</h3>
-<p>A status summarizing the SME technical review outcome for <strong>Repair Evidence</strong> on a <strong>Work Order</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Work Order Status, Work Order Verification, Turbine Review Status</p>
-</section>
-<section class="term-card" id="operational-decision"><h3>Operational Decision</h3>
-<p>The response chosen for approved <strong>Findings</strong>, such as repair, replace, monitor, reinspect, defer, or escalate to vendor.</p>
-<p class="avoid-note"><span>Avoid</span>Action Case, SME recommendation, Finding decision</p>
-</section>
-<section class="term-card" id="operational-decision-change"><h3>Operational Decision Change</h3>
-<p>An audited change to the selected <strong>Operational Decision</strong> on an open <strong>Work Order</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>New Finding, silent decision edit, duplicate Work Order</p>
-</section>
-<section class="term-card" id="reinspect"><h3>Reinspect</h3>
-<p>An <strong>Operational Decision</strong> that schedules a future <strong>Blade Inspection</strong> to collect fresh <strong>Blade Evidence</strong> for a <strong>Finding</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Monitor note, defer, Blade Review</p>
-</section>
-<section class="term-card" id="monitor"><h3>Monitor</h3>
-<p>An <strong>Operational Decision</strong> that keeps a <strong>Finding</strong> open for observation during a defined review window without scheduling a new <strong>Blade Inspection</strong> yet.</p>
-<p class="avoid-note"><span>Avoid</span>Reinspect, defer, closed finding</p>
-</section>
-<section class="term-card" id="defer"><h3>Defer</h3>
-<p>An <strong>Operational Decision</strong> that acknowledges action is needed for a <strong>Finding</strong> but intentionally postpones it for operational reasons until a target date.</p>
-<p class="avoid-note"><span>Avoid</span>Monitor, Reinspect, no action</p>
-</section>
-<section class="term-card" id="closure-evidence"><h3>Closure Evidence</h3>
-<p>Evidence required to close a <strong>Work Order</strong> for non-repair <strong>Operational Decisions</strong> such as monitor, defer, or reinspect.</p>
-<p class="avoid-note"><span>Avoid</span>Repair Evidence, Blade Evidence, Closure Review</p>
-</section>
-<section class="term-card" id="pending-operational-review"><h3>Pending Operational Review</h3>
-<p>A <strong>Work Order</strong> state for non-repair <strong>Operational Decisions</strong> that remain open until their monitoring window, defer target date, or reinspection schedule is resolved.</p>
-<p class="avoid-note"><span>Avoid</span>Closed, Technician assignment, Repair Review</p>
-</section>
-<section class="term-card" id="work-order-verification"><h3>Work Order Verification</h3>
-<p>The final sign-off on a completed <strong>Work Order</strong>, either accepting the work or sending it back for rework.</p>
-<p class="avoid-note"><span>Avoid</span>Closure Review, Repair Review, SME verification</p>
-</section>
-<section class="term-card" id="work-order-verification-status"><h3>Work Order Verification Status</h3>
-<p>The outcome of final operational sign-off on a <strong>Work Order</strong>.</p>
-<p class="avoid-note"><span>Avoid</span>Repair Review Status, Finding Approval, Closure Review</p>
-</section>
-<section class="term-card" id="turbine-health-status"><h3>Turbine Health Status</h3>
-<p>A derived operational condition for a <strong>Turbine</strong> after inspections, reviews, Findings, Work Orders, Repair Reviews, and Work Order Verification have settled.</p>
-<p class="avoid-note"><span>Avoid</span>Turbine Review, Blade Review Status, Work Order status</p>
-</section>
-<section class="article-section" id="relationships"><div class="section-kicker">Relationships</div><h2>Relationships</h2></section>
-<ul class="rule-list">
-<li><strong>Blade Evidence</strong> can produce zero or more <strong>Findings</strong></li>
-<li>An <strong>Inspector</strong> captures <strong>Blade Evidence</strong> at assigned sites</li>
-<li>An <strong>Inspector</strong> does not create <strong>Findings</strong></li>
-<li>A <strong>Technician</strong> is assigned to a <strong>Work Order</strong></li>
-<li>A <strong>Technician</strong> performs the work described by the <strong>Work Order</strong></li>
-<li>A <strong>Technician</strong> uploads <strong>Repair Evidence</strong> for the <strong>Work Order</strong></li>
-<li>A <strong>Technician</strong> marks the <strong>Work Order</strong> done pending <strong>Repair Review</strong> and <strong>Work Order Verification</strong></li>
-<li>A <strong>Technician</strong> does not create <strong>Findings</strong>, approve <strong>Findings</strong>, choose the <strong>Operational Decision</strong>, perform <strong>Repair Review</strong>, or perform <strong>Work Order Verification</strong></li>
-<li><strong>Blade Evidence</strong> captured by an <strong>Inspector</strong> is reviewed by an <strong>SME</strong> during a <strong>Blade Review</strong></li>
-<li>An <strong>SME</strong> performs <strong>Blade Reviews</strong></li>
-<li>An <strong>SME</strong> creates <strong>Defect Annotations</strong> during a <strong>Blade Review</strong></li>
-<li>An <strong>SME</strong> explicitly creates <strong>Findings</strong> downstream from selected <strong>Defect Annotations</strong> in reviewed <strong>Blade Evidence</strong></li>
-<li>An <strong>SME</strong> provides technical recommendations for <strong>Findings</strong></li>
-<li>An <strong>SME</strong> performs <strong>Repair Review</strong> on <strong>Repair Evidence</strong></li>
-<li>An <strong>SME</strong> does not provide <strong>Finding Approval</strong>, create <strong>Work Orders</strong>, execute repair work, or perform <strong>Work Order Verification</strong></li>
-<li>A <strong>Blade Review</strong> covers exactly one turbine blade</li>
-<li>A <strong>Blade Review</strong> can contain zero or more <strong>Defect Annotations</strong></li>
-<li>A <strong>Blade Review</strong> can be completed before any formal <strong>Findings</strong> are created</li>
-<li><strong>Finding</strong> creation is not a completion condition for a <strong>Blade Review</strong></li>
-<li>A <strong>Defect Annotation</strong> does not automatically create a <strong>Finding</strong></li>
-<li>A <strong>Finding</strong> references one or more selected <strong>Defect Annotations</strong></li>
-<li>A <strong>Defect Annotation</strong> can belong to at most one <strong>Finding</strong></li>
-<li>A <strong>Finding</strong> belongs to exactly one <strong>Blade</strong> on exactly one <strong>Turbine</strong></li>
-<li>A <strong>Finding</strong> can reference multiple <strong>Defect Annotations</strong> across multiple images only when they describe the same real defect on the same <strong>Blade</strong></li>
-<li>A <strong>Finding</strong> cannot span multiple <strong>Blades</strong></li>
-<li>A submitted <strong>Finding</strong> receives one <strong>Finding Approval</strong></li>
-<li><strong>Finding Approval</strong> is normally performed by a <strong>Site Manager</strong></li>
-<li><strong>Project Manager</strong> and <strong>Admin</strong> can perform <strong>Finding Approval</strong> as fallback or coordination roles</li>
-<li>An <strong>SME</strong> cannot approve their own <strong>Finding</strong></li>
-<li>A <strong>Finding</strong> can be returned to the <strong>SME</strong> as <strong>Changes Requested</strong></li>
-<li><strong>Changes Requested</strong> is not terminal; the <strong>SME</strong> can edit and resubmit the <strong>Finding</strong></li>
-<li>Invalid duplicate or mistaken <strong>Findings</strong> should become <strong>Archived Finding</strong>, not <strong>Changes Requested</strong></li>
-<li><strong>Finding Status</strong> can be <code>Draft</code>, <code>Submitted</code>, <code>Changes Requested</code>, <code>Approved</code>, <code>Actioned</code>, <code>Closed</code>, or <code>Archived</code></li>
-<li><code>Submitted</code> means the <strong>Finding</strong> is waiting for <strong>Finding Approval</strong></li>
-<li><code>Changes Requested</code> means the <strong>Finding</strong> is back with the <strong>SME</strong> for edits and resubmission</li>
-<li><code>Approved</code> means the <strong>Finding</strong> is eligible for <strong>Work Order Creation</strong></li>
-<li><code>Actioned</code> means the <strong>Finding</strong> is linked to an active <strong>Work Order</strong></li>
-<li><code>Closed</code> means the related <strong>Work Order</strong> path is complete</li>
-<li><code>Archived</code> means the <strong>Finding</strong> should not continue through the workflow</li>
-<li>A <strong>Project Manager</strong> can manage zero or more <strong>Managed Sites</strong></li>
-<li>A site can be managed by zero or more <strong>Project Managers</strong></li>
-<li>A <strong>Site Manager</strong> is scoped to one or more sites</li>
-<li>A <strong>Site Manager</strong> provides site-level operational approval for work at their sites</li>
-<li>An <strong>Admin</strong> belongs to one company</li>
-<li>An <strong>Admin</strong> manages users and site setup inside their company</li>
-<li>An <strong>Admin</strong> can act as a fallback or override actor for workflow actions inside their company</li>
-<li>An <strong>Admin</strong> is not the normal owner of <strong>Blade Reviews</strong>, field execution, site-level authority, or <strong>Work Order Verification</strong></li>
-<li>A <strong>Super Admin</strong> belongs to the Aflo platform governance boundary</li>
-<li>A <strong>Super Admin</strong> onboards and manages companies</li>
-<li>A <strong>Super Admin</strong> manages platform-level reference data and cross-company access setup</li>
-<li>A <strong>Super Admin</strong> does not participate in customer workflow decisions such as <strong>Finding Approval</strong>, <strong>Work Order</strong> creation, field execution, or <strong>Work Order Verification</strong></li>
-<li>A <strong>Company</strong> owns zero or more sites</li>
-<li>A <strong>Company</strong> contains users who act through roles such as <strong>Admin</strong>, <strong>Project Manager</strong>, <strong>Site Manager</strong>, <strong>SME</strong>, <strong>Inspector</strong>, and <strong>Technician</strong></li>
-<li>A <strong>Company</strong> scopes user access, workflow data, and audit history</li>
-<li>A <strong>Project Manager</strong> from one <strong>Company</strong> can manage specific <strong>Managed Sites</strong> owned by another <strong>Company</strong></li>
-<li>A <strong>Site</strong> belongs to exactly one <strong>Company</strong></li>
-<li>A <strong>Site</strong> contains zero or more <strong>Turbines</strong></li>
-<li>A <strong>Site</strong> can have assigned <strong>Site Managers</strong>, <strong>SMEs</strong>, <strong>Inspectors</strong>, and <strong>Technicians</strong></li>
-<li>A <strong>Site</strong> can be a <strong>Managed Site</strong> for a <strong>Project Manager</strong> from another <strong>Company</strong></li>
-<li><strong>Blade Evidence</strong>, <strong>Findings</strong>, <strong>Work Orders</strong>, <strong>Repair Evidence</strong>, <strong>Repair Reviews</strong>, <strong>Work Order Verification</strong>, and audit history are site-scoped</li>
-<li>A <strong>Turbine</strong> belongs to exactly one <strong>Site</strong></li>
-<li>A <strong>Turbine</strong> contains one or more <strong>Blades</strong></li>
-<li>A <strong>Blade</strong> belongs to exactly one <strong>Turbine</strong></li>
-<li>A <strong>Turbine Inspection</strong> belongs to exactly one <strong>Turbine</strong></li>
-<li>A <strong>Turbine Inspection</strong> contains one <strong>Blade Inspection</strong> per inspected <strong>Blade</strong></li>
-<li>A typical three-blade <strong>Turbine Inspection</strong> contains three <strong>Blade Inspections</strong></li>
-<li>A <strong>Turbine Inspection</strong> is complete when all expected <strong>Blade Inspections</strong> are complete</li>
-<li><strong>Turbine Inspection Status</strong> summarizes turbine-level inspection progress for display</li>
-<li><strong>Turbine Inspection Status</strong> can be <code>Not Started</code>, <code>In Progress</code>, <code>Returned for Correction</code>, or <code>Inspection Complete</code></li>
-<li><strong>Turbine Inspection Status</strong> is <code>Returned for Correction</code> when any expected <strong>Blade Inspection</strong> is <code>Returned for Correction</code></li>
-<li><strong>Completed Turbine Inspection</strong> is derived from completed <strong>Blade Inspections</strong> and is not stored as a separate submitted record</li>
-<li>A typical three-blade <strong>Completed Turbine Inspection</strong> requires completed <strong>Blade Inspections</strong> for Blade A, Blade B, and Blade C</li>
-<li>A <strong>Blade Inspection</strong> belongs to exactly one <strong>Blade</strong> on one <strong>Turbine</strong></li>
-<li>A <strong>Blade Inspection</strong> is performed by an <strong>Inspector</strong></li>
-<li>A <strong>Blade Inspection</strong> produces <strong>Blade Evidence</strong></li>
-<li>A <strong>Blade Inspection</strong> requires one image for each <strong>Required Blade Image Slot</strong></li>
-<li><strong>Required Blade Image Slot</strong> values are <code>1</code>, <code>2</code>, and <code>3</code> until field-specific view names are confirmed</li>
-<li>A <strong>Blade Inspection</strong> is ready to submit when all three required blade images are uploaded</li>
-<li>A <strong>Blade Inspection</strong> is complete when all three required blade images are uploaded and the <strong>Inspector</strong> submits it for <strong>SME</strong> review</li>
-<li><strong>Submit Blade Inspection</strong> is performed per <strong>Blade Inspection</strong>, not once for the whole <strong>Turbine Inspection</strong></li>
-<li><strong>Blade Inspection Status</strong> can be <code>Not Started</code>, <code>In Progress</code>, <code>Ready to Submit</code>, <code>Inspection Complete</code>, or <code>Returned for Correction</code></li>
-<li><code>Ready to Submit</code> means all required <strong>Blade Evidence</strong> is uploaded but the <strong>Inspector</strong> has not yet submitted the <strong>Blade Inspection</strong></li>
-<li><code>Inspection Complete</code> means the <strong>Inspector</strong> has submitted the required <strong>Blade Evidence</strong> for <strong>SME</strong> review</li>
-<li><code>Returned for Correction</code> means an <strong>Admin</strong>, <strong>Site Manager</strong>, or <strong>Project Manager</strong> returned the submitted <strong>Blade Inspection</strong> to the <strong>Inspector</strong> with <strong>Inspection Remarks</strong></li>
-<li><strong>Blade Inspection Status</strong> never includes <strong>No Findings</strong> or <strong>Findings Present</strong> because the <strong>Inspector</strong> uploads all required <strong>Blade Evidence</strong> regardless of blade condition</li>
-<li>An <strong>Admin</strong>, <strong>Site Manager</strong>, or <strong>Project Manager</strong> can create an <strong>Inspection Return</strong> for a submitted <strong>Blade Inspection</strong></li>
-<li>An <strong>Inspection Return</strong> must include <strong>Inspection Remarks</strong></li>
-<li>An <strong>SME</strong> cannot create an <strong>Inspection Return</strong>, edit <strong>Blade Evidence</strong>, or control <strong>Blade Inspection Status</strong></li>
-<li><strong>Blade Evidence</strong> is captured for a <strong>Blade</strong> on a <strong>Turbine</strong></li>
-<li>Submitting a <strong>Blade Inspection</strong> automatically starts the corresponding <strong>Blade Review</strong></li>
-<li>No separate operational assignment step is required before the <strong>SME</strong> can begin the <strong>Blade Review</strong></li>
-<li>Automatically started <strong>Blade Reviews</strong> appear in the <strong>SME Review Queue</strong> for the <strong>Site</strong></li>
-<li>Any <strong>SME</strong> assigned to the <strong>Site</strong> can claim a <strong>Blade Review</strong> from the <strong>SME Review Queue</strong></li>
-<li>Once an <strong>SME</strong> claims a <strong>Blade Review</strong>, no other <strong>SME</strong> can work on that <strong>Blade Review</strong> at the same time</li>
-<li>Other assigned <strong>SMEs</strong> can see that the <strong>Blade Review</strong> has been claimed and by whom</li>
-<li>The claiming <strong>SME</strong> can release their own <strong>Blade Review</strong> claim only before creating <strong>Defect Annotations</strong></li>
-<li>An <strong>Admin</strong>, <strong>Site Manager</strong>, or <strong>Project Manager</strong> can release a <strong>Blade Review</strong> claim when reassignment is needed</li>
-<li>If a claimed <strong>Blade Review</strong> already has <strong>Defect Annotations</strong>, releasing the claim requires an <strong>Admin</strong>, <strong>Site Manager</strong>, or <strong>Project Manager</strong></li>
-<li>The <strong>SME</strong> who completes the <strong>Blade Review</strong> is recorded as the accountable reviewer</li>
-<li>A <strong>Blade Review</strong> reviews the <strong>Blade Evidence</strong> from one <strong>Blade Inspection</strong></li>
-<li>A <strong>Blade Review</strong> is performed by an <strong>SME</strong></li>
-<li>Every required image in a <strong>Blade Review</strong> has an <strong>Image Review Status</strong></li>
-<li><strong>Image Review Status</strong> can be <code>Pending</code> or <code>Review Complete</code></li>
-<li><code>Review Complete</code> for an image means the <strong>SME</strong> has reviewed that image, whether or not it has <strong>Defect Annotations</strong></li>
-<li>A <strong>Blade Review</strong> is complete when every required image has <strong>Image Review Status</strong> <code>Review Complete</code></li>
-<li><strong>Blade Review</strong> is performed per blade so the <strong>SME</strong> accountability boundary matches the submitted <strong>Blade Inspection</strong></li>
-<li><strong>Blade Review Status</strong> can be <code>Not Started</code>, <code>In Review</code>, or <code>Review Complete</code></li>
-<li><code>Not Started</code> for a <strong>Blade Review</strong> means the corresponding <strong>Blade Inspection</strong> has not been submitted yet</li>
-<li><code>In Review</code> begins automatically when the corresponding <strong>Blade Inspection</strong> is submitted</li>
-<li><code>Review Complete</code> means the <strong>SME</strong> has reviewed and completed all required blade images for that <strong>Blade</strong></li>
-<li>A <strong>Completed Blade Review</strong> may have zero or more <strong>Defect Annotations</strong></li>
-<li>A <strong>Completed Blade Review</strong> does not require <strong>Findings</strong></li>
-<li><strong>Defect Annotations</strong> do not need to be attached to <strong>Findings</strong> for the <strong>Blade Review</strong> to be complete</li>
-<li>Turbine-level review progress is derived from the <strong>Blade Reviews</strong> for that <strong>Turbine</strong></li>
-<li><strong>Blade Review Rollup</strong> summarizes turbine-level blade review progress for display</li>
-<li><strong>Blade Review Rollup</strong> can be <code>Not Started</code>, <code>In Review</code>, or <code>Review Complete</code></li>
-<li>A typical three-blade turbine has review complete when Blade A, Blade B, and Blade C each have a <strong>Completed Blade Review</strong></li>
-<li><code>Review Complete</code> for a <strong>Blade Review Rollup</strong> means every expected <strong>Blade Review</strong> is complete</li>
-<li>Turbine-level <strong>No Findings</strong> is a downstream Finding result, not a <strong>Blade Review Rollup</strong></li>
-<li>There is no separate <strong>Turbine Review</strong> domain object</li>
-<li>A <strong>Work Order</strong> is scoped to exactly one turbine</li>
-<li>A <strong>Work Order</strong> must link at least one approved <strong>Finding</strong></li>
-<li>A <strong>Work Order</strong> can group approved <strong>Findings</strong> across multiple <strong>Blades</strong> on that <strong>Turbine</strong></li>
-<li>A <strong>Work Order</strong> can link only <strong>Findings</strong> whose current state is approved</li>
-<li><strong>Findings</strong> in <strong>Changes Requested</strong> or <strong>Archived Finding</strong> cannot be linked to a <strong>Work Order</strong></li>
-<li>A <strong>Finding</strong> can belong to at most one active <strong>Work Order</strong></li>
-<li>A <strong>Work Order</strong> can be created by a <strong>Site Manager</strong>, <strong>Project Manager</strong>, or <strong>Admin</strong></li>
-<li><strong>Work Order Creation</strong> does not require a <strong>Project Manager</strong> to exist for the <strong>Site</strong></li>
-<li>A <strong>Work Order</strong> contains exactly one <strong>Operational Decision</strong></li>
-<li>The selected <strong>Operational Decision</strong> belongs to the <strong>Work Order</strong>, not the <strong>Finding</strong></li>
-<li>A <strong>Finding</strong> can carry an <strong>SME</strong> recommendation, but it does not own the selected <strong>Operational Decision</strong></li>
-<li>If grouped <strong>Findings</strong> have conflicting <strong>SME</strong> recommendations, the <strong>Work Order</strong> creator chooses one <strong>Operational Decision</strong> and records the rationale</li>
-<li>If grouped <strong>Findings</strong> require different <strong>Operational Decisions</strong>, create separate <strong>Work Orders</strong></li>
-<li><strong>Work Order Status</strong> can be <code>Draft</code>, <code>Open</code>, <code>Assigned</code>, <code>In Progress</code>, <code>Blocked</code>, <code>Pending Repair Review</code>, <code>Rework Required</code>, <code>Pending Work Order Verification</code>, <code>Pending Operational Review</code>, <code>Closed</code>, or <code>Archived</code></li>
-<li><code>Assigned</code>, <code>In Progress</code>, <code>Pending Repair Review</code>, and <code>Rework Required</code> apply to physical-work <strong>Operational Decisions</strong></li>
-<li><code>Pending Operational Review</code> applies to non-repair <strong>Operational Decisions</strong> such as <strong>Monitor</strong>, <strong>Defer</strong>, and <strong>Reinspect</strong></li>
-<li><code>Pending Work Order Verification</code> means required technical or operational prerequisites are complete and the <strong>Work Order</strong> is waiting on <strong>Work Order Verification</strong></li>
-<li><strong>Repair Evidence</strong> belongs to exactly one <strong>Work Order</strong></li>
-<li><strong>Repair Evidence</strong> requires at least one completion photo and a completion note before the <strong>Technician</strong> can submit physical work</li>
-<li>Materials used, time spent, and safety notes can be optional <strong>Repair Evidence</strong> fields unless the field process requires them</li>
-<li><strong>Repair Review</strong> belongs to exactly one <strong>Work Order</strong></li>
-<li><strong>Repair Review</strong> is performed by an <strong>SME</strong> and does not close the <strong>Work Order</strong></li>
-<li><strong>Repair Evidence</strong> and <strong>Repair Review</strong> are required for physical-work <strong>Operational Decisions</strong> such as repair or replace</li>
-<li>Non-repair <strong>Operational Decisions</strong> such as monitor, defer, or reinspect use <strong>Closure Evidence</strong> instead of <strong>Repair Evidence</strong></li>
-<li><strong>Repair Review</strong> is not required for non-repair <strong>Operational Decisions</strong> unless explicitly requested by the <strong>Operational Decision</strong></li>
-<li><strong>Reinspect</strong> creates or schedules a future <strong>Blade Inspection</strong> with fresh <strong>Blade Evidence</strong></li>
-<li><strong>Monitor</strong> keeps a <strong>Finding</strong> open during a defined review window and does not schedule a new <strong>Blade Inspection</strong> yet</li>
-<li><strong>Monitor</strong> requires a review date or monitoring window</li>
-<li><strong>Defer</strong> postpones known action for operational reasons</li>
-<li><strong>Defer</strong> requires a defer reason and target date</li>
-<li><strong>Work Orders</strong> with <strong>Monitor</strong> or <strong>Defer</strong> decisions remain open as <strong>Pending Operational Review</strong> until the monitoring window or defer target date is resolved</li>
-<li><strong>Monitor</strong> and <strong>Defer</strong> <strong>Work Orders</strong> do not require a <strong>Technician</strong> assignment unless the <strong>Operational Decision</strong> later changes to physical work</li>
-<li>An open <strong>Work Order</strong> can receive an <strong>Operational Decision Change</strong> when the same <strong>Findings</strong> and <strong>Turbine</strong> context still apply</li>
-<li><strong>Operational Decision Change</strong> keeps audit history of the previous <strong>Operational Decision</strong></li>
-<li>If the changed decision requires a different set of <strong>Findings</strong> or a different <strong>Turbine</strong>, create a separate <strong>Work Order</strong></li>
-<li><strong>Repair Review Status</strong> can be <code>Pending Review</code>, <code>Repair Review Complete</code>, or <code>Rework Required</code></li>
-<li><code>Repair Review Complete</code> means the <strong>SME</strong> says the <strong>Repair Evidence</strong> is technically acceptable and ready for <strong>Work Order Verification</strong></li>
-<li><code>Rework Required</code> means the <strong>SME</strong> sends the <strong>Work Order</strong> back to the <strong>Technician</strong> with remarks</li>
-<li><code>Rework Required</code> returns the <strong>Work Order</strong> to the same <strong>Technician</strong> by default</li>
-<li>A <strong>Site Manager</strong>, <strong>Project Manager</strong>, or <strong>Admin</strong> can reassign a <strong>Work Order</strong> after <code>Rework Required</code></li>
-<li><strong>Work Order Verification</strong> cannot happen until <strong>Repair Review Status</strong> is <code>Repair Review Complete</code></li>
-<li><strong>Work Order Verification</strong> belongs to exactly one <strong>Work Order</strong></li>
-<li><strong>Work Order Verification</strong> is performed by a <strong>Site Manager</strong>, <strong>Project Manager</strong>, or <strong>Admin</strong></li>
-<li><strong>Work Order Verification Status</strong> can be <code>Accepted</code> or <code>Sent Back</code></li>
-<li><code>Accepted</code> closes the <strong>Work Order</strong> and can close linked <strong>Findings</strong></li>
-<li><code>Sent Back</code> returns the <strong>Work Order</strong> to the appropriate prior state with remarks</li>
-<li>For physical repair, <code>Sent Back</code> returns the <strong>Work Order</strong> to the <strong>Technician</strong></li>
-<li>For <strong>Monitor</strong>, <strong>Defer</strong>, or <strong>Reinspect</strong>, <code>Sent Back</code> returns the <strong>Work Order</strong> to <strong>Pending Operational Review</strong> or the operational owner</li>
-<li><strong>Turbine Health Status</strong> is derived, not manually edited</li>
-<li><strong>Turbine Health Status</strong> can be <code>Unknown</code>, <code>Healthy</code>, <code>Findings Present</code>, <code>Work In Progress</code>, or <code>Pending Reinspection</code></li>
-<li><code>Unknown</code> means there is not enough completed review data yet</li>
-<li><code>Healthy</code> means all required <strong>Blade Reviews</strong> are complete and there are no open <strong>Findings</strong> or active <strong>Work Orders</strong></li>
-<li><code>Findings Present</code> means one or more <strong>Findings</strong> exist and are not fully resolved</li>
-<li><code>Work In Progress</code> means one or more active <strong>Work Orders</strong> exist</li>
-<li><code>Pending Reinspection</code> means a <strong>Reinspect</strong> decision is scheduled but not completed</li>
-<li>When multiple <strong>Turbine Health Status</strong> conditions apply, use this priority: <code>Work In Progress</code>, then <code>Pending Reinspection</code>, then <code>Findings Present</code>, then <code>Healthy</code>, then <code>Unknown</code></li>
-<li>A <strong>Turbine Health Status</strong> can become <code>Healthy</code> only after required <strong>Blade Reviews</strong> are complete, downstream <strong>Findings</strong> are resolved, related <strong>Work Orders</strong> are closed, and required <strong>Work Order Verification</strong> is accepted</li>
-</ul>
-<section class="article-section" id="example-dialogue"><div class="section-kicker">Example Dialogue</div><h2>Example Dialogue</h2></section>
-<blockquote class="dialogue-block">
-<p><strong>Dev:</strong> &quot;After a Finding is approved, do we create an Action Case?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Action Case is retired language. Create a Work Order directly from approved Findings, and put the Operational Decision on that Work Order.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does the SME approve the Finding?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The SME submits the technical claim; Finding Approval is normally a Site Manager decision, with Project Manager or Admin as fallback.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If Finding Approval rejects a Finding, is it terminal?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Use Changes Requested when the Finding should go back to the SME for edits and resubmission.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What Finding statuses should we use?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Use Draft, Submitted, Changes Requested, Approved, Actioned, Closed, and Archived.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What if the Finding is a duplicate or accidental submission?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Archive it. Archived Finding is terminal and means the Finding should not continue.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does the Inspector decide which images might contain defects?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The Inspector captures the complete Blade Evidence. The SME reviews that evidence and creates Defect Annotations. Findings are created downstream.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can the Inspector flag obvious damage as a draft defect?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Even obvious damage becomes part of the complete Blade Evidence; the SME creates Defect Annotations during Blade Review, and Findings are created downstream.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can the Technician verify the Work Order they just completed?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The Technician executes the Work Order and uploads Repair Evidence; Work Order Verification is separate operational sign-off.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does the SME verify repair completion?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;The SME performs Repair Review on Repair Evidence. Work Order Verification is still operational sign-off by Site Manager, Project Manager, or Admin.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What do we call the SME reviewing all images for blade B on turbine WTG-014?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;That is a Blade Review. It may include Defect Annotations, but formal Findings are created downstream.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If the SME reviews every image and sees no reportable defect, do we create a Finding?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The Blade Review is completed, and no Finding is created downstream.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can a healthy Turbine have No Findings?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Yes, after the expected Blade Reviews are complete and the downstream Finding path creates no Findings.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is the box drawn around leading-edge erosion the Finding?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The box is a Defect Annotation. The Finding is the formal defect finding that may reference that annotation.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does every Defect Annotation automatically become a Finding?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The SME explicitly creates a Finding from selected Defect Annotations.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does every Defect Annotation need to be attached to a Finding before the Blade Review can be completed?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Blade Review completion is based on completing review of the required images, not on creating Findings.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can one Finding cover Blade A and Blade C on the same Turbine?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A Finding is blade-specific. A Work Order is turbine-scoped and can group Findings across multiple Blades on that Turbine.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can the same Defect Annotation be used in two Findings?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. One Defect Annotation can belong to at most one Finding.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can one Work Order cover defects on three different turbines?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A Work Order can group multiple Findings only when they belong to the same turbine.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can one Work Order cover Blade A and Blade C on the same turbine?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Yes. A Work Order is turbine-scoped, not blade-scoped.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is a Project Manager assigned to every site?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A site can exist without a Project Manager. Work Orders can still be created by Site Manager or Admin.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is the Project Manager the site authority?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The Project Manager coordinates workflow across Managed Sites; the Site Manager is the site-level operational authority.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Did the Admin approve the defect?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Only as fallback language. Admin is a company-level administrator; normal workflow language should name the operational decision, such as Finding Approval or Work Order Verification.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can Super Admin close a customer's Work Order?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Super Admin governs the Aflo platform and cross-company setup; customer workflow decisions stay with customer-side roles.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is a Company the same thing as a wind site?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Company is the tenant boundary. A Company can own sites, and an ISP/O&amp;M Company can manage specific sites owned by another Company.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is a Site the same thing as a project?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Site means the wind farm or wind power plant. Project is not canonical language for this app right now.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is WTG a different thing from Turbine?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. WTG is the field abbreviation for wind turbine generator. The product term is Turbine.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If Findings are on Blade A and Blade C of the same Turbine, do we need two Work Orders?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Not necessarily. Findings are blade-specific, but the Work Order is turbine-scoped and can group multiple Blades on the same Turbine.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does Work Order Creation require a Project Manager?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Site Manager, Project Manager, or Admin can create a Work Order from approved Findings.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can a Work Order include a Finding that is Changes Requested or Archived?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Work Orders can link only currently approved Findings.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can the same Finding be linked to two active Work Orders?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A Finding can belong to at most one active Work Order.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can we create a Work Order with no Findings for preventive or ad hoc work?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No, not in this workflow. Work Orders are created from approved Findings; preventive or ad hoc maintenance is future scope.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What statuses should Work Orders use?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Use Draft, Open, Assigned, In Progress, Blocked, Pending Repair Review, Rework Required, Pending Work Order Verification, Pending Operational Review, Closed, and Archived. Physical-work statuses apply only when technician work exists.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does the Operational Decision live on the Finding or the Work Order?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Work Order. A Finding can carry an SME recommendation, but the selected Operational Decision belongs to the Work Order.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What if grouped Findings have conflicting SME recommendations?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;The Work Order creator chooses one Operational Decision and records the rationale. If the Findings need different decisions, split them into separate Work Orders.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does every Work Order need Repair Evidence and Repair Review?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Repair Evidence and Repair Review are for physical work such as repair or replace. Monitor, defer, or reinspect use Closure Evidence unless the Operational Decision explicitly asks for Repair Review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What Repair Evidence is required before Technician submission?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;At least one completion photo and a completion note. Materials, time spent, and safety notes can be optional unless the field process requires them.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What does Reinspect mean?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Reinspect means schedule a future Blade Inspection to collect fresh Blade Evidence for the Finding.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What does Monitor mean?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Monitor means keep the Finding open for a defined review window without scheduling a new Blade Inspection yet.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What does Defer mean?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Defer means action is needed, but intentionally postponed for operational reasons until a target date.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Do Monitor or Defer Work Orders close immediately?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. They remain open as Pending Operational Review until the monitoring window or defer target date is resolved.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can a Monitor decision later become Repair?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Yes. Use an audited Operational Decision Change on the same open Work Order if the same Findings and Turbine still apply.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is a Turbine Inspection the same thing as a Blade Inspection?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A Turbine Inspection is the full turbine pass. On a typical three-blade turbine, it contains three Blade Inspections.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can a Turbine Inspection be complete if Blade C is missing one required image?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. A Turbine Inspection is complete only when every expected Blade Inspection is complete.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What are the three required blade image view names?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Use Required Blade Image Slot 1, 2, and 3 until the field team confirms the actual view names.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Do we store a separate Turbine Inspection completion record?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Completed Turbine Inspection is derived from the expected Blade Inspections.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Who does the Blade Inspection and who does the Blade Review?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;The Inspector performs the Blade Inspection. The SME performs the Blade Review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does a Blade Review need an annotation on every image?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The SME must verify all three blade images, but only creates Defect Annotations where there are reportable defects.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does every image need a completion mark even if there are no Defect Annotations?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Yes. Every required image gets Image Review Status Review Complete once the SME has reviewed it.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What statuses should a Blade Review show?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Use Not Started, In Review, and Review Complete. Finding creation is downstream from Blade Review completion.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Should we create a Turbine Review after the three Blade Reviews?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The real domain objects are the Blade Reviews. Turbine-level review status is only a rollup.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What should the UI call the turbine-level review rollup?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Blade Review Rollup. It rolls up whether the expected Blade Reviews are Not Started, In Review, or Review Complete.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;After the Technician uploads completion pictures, should we call the SME check a Turbine Review?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Use Repair Review. Turbine Review is not canonical language.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What can the SME decide during Repair Review?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;The SME can mark Repair Review Complete or Rework Required. Work Order Verification waits until Repair Review is complete.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If Repair Review says Rework Required, who gets the Work Order?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;It goes back to the same Technician by default. Site Manager, Project Manager, or Admin can reassign it if needed.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;When can a Turbine Health Status become Healthy?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;After required Blade Reviews are complete, downstream Findings are resolved, related Work Orders are closed, and Work Order Verification is accepted.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Is Turbine Health Status manually set?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. It is derived from review completion, Findings, Work Orders, and reinspection state.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If more than one Turbine Health Status condition applies, which one wins?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Use priority order: Work In Progress, Pending Reinspection, Findings Present, Healthy, then Unknown.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What are the Work Order Verification outcomes?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Accepted closes the Work Order and can close linked Findings. Sent Back returns the Work Order to the appropriate prior state with remarks.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;What should the UI call the Inspector-side turbine rollup?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Turbine Inspection Status. It summarizes Blade Inspection progress and is not a separate inspection object.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Should Blade Inspection Status mirror Blade Review Status?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Blade Inspection Status only tracks required evidence upload. Findings are determined during Blade Review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If the Inspector uploads all three blade images, is the Blade Inspection complete?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Not yet. It is Ready to Submit. It becomes Inspection Complete only when the Inspector submits the Blade Inspection for SME review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Should the Inspector submit the whole turbine at once?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Submission is per Blade Inspection, and the SME performs a per-blade Blade Review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Does someone assign the submitted Blade Inspection to an SME before review starts?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Submitting the Blade Inspection automatically starts the Blade Review for the SME.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If multiple SMEs are assigned to the site, who owns the Blade Review?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;It enters the SME Review Queue. Any assigned SME can complete it, and the app records which SME completed the review.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can two SMEs work on the same Blade Review at the same time?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. Once an SME begins the Blade Review, it is claimed by that SME and visible as claimed to the other SMEs.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can a claimed Blade Review be released?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Yes. The SME can release it before creating annotations. After annotations exist, Admin, Site Manager, or Project Manager must release the claim.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;Can the SME send a submitted Blade Inspection back if the image quality is poor?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;No. The SME annotates and completes the Blade Review. Admin, Site Manager, or Project Manager can return the Blade Inspection with Inspection Remarks.&quot;</p>
-<br>
-<p><strong>Dev:</strong> &quot;If Blade B is returned for correction, what should the turbine-level inspection status show?&quot;</p>
-<p><strong>Domain expert:</strong> &quot;Returned for Correction. The turbine inspection is blocked until the returned Blade Inspection is corrected and resubmitted.&quot;</p>
-<br>
-</blockquote>
-<section class="article-section" id="flagged-ambiguities"><div class="section-kicker">Flagged Ambiguities</div><h2>Flagged Ambiguities</h2></section>
-<ul class="rule-list">
-<li>&quot;Action Case&quot; is retired. The canonical term is <strong>Work Order</strong> with an embedded <strong>Operational Decision</strong>.</li>
-<li>&quot;Closure Review&quot; is retired. The canonical term is <strong>Work Order Verification</strong> on a completed <strong>Work Order</strong>.</li>
-<li>&quot;SME approval&quot; is ambiguous. The SME submits the technical claim; <strong>Finding Approval</strong> is the operational decision to accept or reject it.</li>
-<li><strong>Finding Approval</strong> is normally owned by the <strong>Site Manager</strong>. <strong>Project Manager</strong> and <strong>Admin</strong> are fallback or coordination roles; <strong>SME</strong> is not an approver.</li>
-<li>Do not use terminal <strong>Rejected</strong> when the approver wants edits. Use <strong>Changes Requested</strong> so the <strong>SME</strong> can revise and resubmit the <strong>Finding</strong>.</li>
-<li>Use <strong>Archived Finding</strong> for duplicate, accidental, or invalid <strong>Findings</strong> that should not continue through the workflow.</li>
-<li>Use <strong>Submitted</strong> rather than <code>UNDER_REVIEW</code> for a <strong>Finding</strong> waiting on <strong>Finding Approval</strong>.</li>
-<li>&quot;SME verification&quot; is ambiguous. The SME may perform <strong>Repair Review</strong>, but <strong>Work Order Verification</strong> is operational sign-off on a completed <strong>Work Order</strong>.</li>
-<li>&quot;Technical authority&quot; is ambiguous when it implies approval. Use <strong>SME</strong> for technical interpretation and recommendations; use <strong>Finding Approval</strong> or <strong>Work Order Verification</strong> for governance decisions.</li>
-<li>&quot;Inspection Evidence&quot; is retired. The canonical term is <strong>Blade Evidence</strong>.</li>
-<li>&quot;Blade Image&quot; is too specific for the domain object. Use <strong>Blade Evidence</strong> for the complete image set, metadata, and annotations; reserve image language for an individual file when needed.</li>
-<li>&quot;Inspection Note&quot; is retired. Inspectors capture complete <strong>Blade Evidence</strong>; they do not create a separate suspected-issue record.</li>
-<li>&quot;Pilot&quot; is legacy language for <strong>Inspector</strong>.</li>
-<li>Inspector-created draft annotations are outside the canonical workflow unless explicitly reintroduced later.</li>
-<li>Work Order completion is execution-scoped. Treat non-Technician completion as override behavior only if the product explicitly reintroduces it.</li>
-<li>&quot;Turbine Review&quot; and <strong>Turbine Review Status</strong> are not canonical. The meaningful SME review unit is <strong>Blade Review</strong>; use <strong>Blade Review Rollup</strong> for turbine-level derived UI status.</li>
-<li><strong>Blade Review Status</strong> and <strong>Blade Review Rollup</strong> use matching terminal wording: <code>Review Complete</code>. They do not encode downstream <strong>Finding</strong> creation.</li>
-<li><strong>Blade Inspection Status</strong> and <strong>Turbine Inspection Status</strong> track field evidence capture and Inspector submission only. They do not include <strong>No Findings</strong> or <strong>Findings Present</strong>.</li>
-<li><strong>Turbine Inspection Status</strong> and <strong>Blade Review Rollup</strong> are derived UI summaries, not workflow objects, and they are not semantic mirrors.</li>
-<li>A turbine-level submit action is not canonical right now. <strong>Submit Blade Inspection</strong> is per blade, matching the <strong>Blade Review</strong> boundary.</li>
-<li><strong>Blade Review</strong> starts automatically from <strong>Submit Blade Inspection</strong>; do not introduce a separate review assignment object unless SME routing becomes a real product need.</li>
-<li><strong>SME Review Queue</strong> is shared across assigned site SMEs until an <strong>SME</strong> claims the <strong>Blade Review</strong>. Claiming prevents concurrent SME review work.</li>
-<li><strong>Release Blade Review Claim</strong> is allowed for the claiming <strong>SME</strong> only before <strong>Defect Annotations</strong> exist; after annotations exist, release is an operational control.</li>
-<li><strong>Turbine Inspection Status</strong> should surface <code>Returned for Correction</code> when any expected <strong>Blade Inspection</strong> has been returned.</li>
-<li><strong>Inspection Return</strong> is operational inspection quality control, not SME review. Do not give SMEs authority to return or edit <strong>Blade Evidence</strong>.</li>
-<li>&quot;Defect&quot; is overloaded. Use <strong>Defect Annotation</strong> for marked image regions and <strong>Finding</strong> for the formal defect finding.</li>
-<li>Do not automatically create a <strong>Finding</strong> for every <strong>Defect Annotation</strong>. <strong>Create Finding</strong> is an explicit <strong>SME</strong> action from selected <strong>Defect Annotations</strong>.</li>
-<li><strong>Blade Review</strong> completion is based on completing the review of required images, not on creating <strong>Findings</strong> or attaching every <strong>Defect Annotation</strong> to a <strong>Finding</strong>.</li>
-<li><strong>Image Review Status</strong> is the per-image SME accountability mark. A <strong>Defect Annotation</strong> is optional; image review completion is mandatory.</li>
-<li><strong>Finding</strong> is blade-specific within a turbine context. <strong>Work Order</strong> is turbine-scoped and can group approved <strong>Findings</strong> across blades on the same <strong>Turbine</strong>.</li>
-<li><strong>Work Order</strong> eligibility is based on the current <strong>Finding</strong> state. Only approved <strong>Findings</strong> can be linked.</li>
-<li>A <strong>Finding</strong> can belong to at most one active <strong>Work Order</strong> to avoid duplicate repair execution.</li>
-<li>Zero-Finding Work Orders are out of scope. Preventive or ad hoc maintenance is a future workflow, not part of the current Finding-to-Work Order path.</li>
-<li><strong>Work Order Status</strong> must support both physical-work paths and non-repair <strong>Pending Operational Review</strong> paths.</li>
-<li><strong>Operational Decision</strong> belongs to the <strong>Work Order</strong>. Do not treat the <strong>SME</strong> recommendation on a <strong>Finding</strong> as the selected operational response.</li>
-<li>One <strong>Work Order</strong> has one <strong>Operational Decision</strong>. Split <strong>Findings</strong> into separate <strong>Work Orders</strong> when they need different operational responses.</li>
-<li><strong>Repair Review</strong> is scoped to physical-work <strong>Operational Decisions</strong>. Do not force it onto monitor, defer, or reinspect decisions unless the <strong>Operational Decision</strong> explicitly requires it.</li>
-<li><strong>Reinspect</strong> is not a passive note. It schedules a future <strong>Blade Inspection</strong> and fresh <strong>Blade Evidence</strong>.</li>
-<li><strong>Monitor</strong> is not <strong>Reinspect</strong>. It tracks an open <strong>Finding</strong> with a review date or monitoring window but does not schedule fresh field capture yet.</li>
-<li><strong>Defer</strong> is not <strong>Monitor</strong>. <strong>Defer</strong> means action is needed but postponed; <strong>Monitor</strong> means observe because action may not be needed yet.</li>
-<li><strong>Monitor</strong> and <strong>Defer</strong> <strong>Work Orders</strong> stay open as <strong>Pending Operational Review</strong>. Do not assign a <strong>Technician</strong> unless the decision changes to physical work.</li>
-<li>Use <strong>Operational Decision Change</strong> for audited changes to the selected <strong>Operational Decision</strong> on an open <strong>Work Order</strong>. Do not silently edit the decision.</li>
-<li>A <strong>Defect Annotation</strong> can support at most one <strong>Finding</strong>. Create separate annotations when two Findings need separate evidence.</li>
-<li><strong>No Findings</strong> is downstream Finding language, not <strong>Blade Review Status</strong> or <strong>Blade Review Rollup</strong> language.</li>
-<li>Multi-turbine repair grouping is out of scope. Do not introduce a canonical term such as &quot;Repair Campaign&quot; until the product needs it.</li>
-<li>&quot;Project Manager&quot; is not a site role. Use <strong>Managed Site</strong> for a site inside a Project Manager's coordination scope.</li>
-<li>Do not make <strong>Work Order Creation</strong> depend on a <strong>Project Manager</strong>. A <strong>Site</strong> might not have one.</li>
-<li>&quot;Site In-charge&quot; is an Indian O&amp;M synonym for <strong>Site Manager</strong>; the product uses <code>SITE_MANAGER</code> consistently.</li>
-<li>&quot;Admin&quot; is not shorthand for any approver. Use <strong>Admin</strong> for company-level administration or explicit fallback/override behavior.</li>
-<li>&quot;Super Admin&quot; is not a customer workflow role. Use <strong>Super Admin</strong> only for Aflo platform governance and setup.</li>
-<li>&quot;Company&quot;, &quot;customer&quot;, &quot;client&quot;, &quot;tenant&quot;, and &quot;account&quot; are easy to blur. Use <strong>Company</strong> for the product's data and access boundary.</li>
-<li>A <strong>Company</strong> is not a site. Sites belong to Companies, but cross-company <strong>Managed Sites</strong> allow ISP/O&amp;M coordination without changing ownership.</li>
-<li>&quot;Project&quot; is not canonical for a wind farm location. Use <strong>Site</strong> for the wind farm or wind power plant level.</li>
-<li>&quot;WTG&quot; is an industry abbreviation for <strong>Turbine</strong>. Use <strong>Turbine</strong> as the canonical product term unless labeling a field like WTG Number.</li>
-<li><strong>Blade</strong> is first-class for review and Findings, but not for Work Order scope. Work Orders are scoped to the <strong>Turbine</strong>.</li>
-<li><strong>Blade Inspection</strong> is field capture. <strong>Blade Review</strong> is SME review. Do not use them interchangeably.</li>
-<li>&quot;Complete&quot; is overloaded. A <strong>Completed Blade Inspection</strong> means the Inspector uploaded and submitted all required blade images; a <strong>Completed Blade Review</strong> means the SME reviewed and completed all required blade images.</li>
-<li>A <strong>Completed Turbine Inspection</strong> is derived from completed field capture for every expected <strong>Blade Inspection</strong>, not stored as a separate submitted record and not based on SME review completion.</li>
-<li>The exact field names of the three required blade image views are unresolved. Use <strong>Required Blade Image Slot</strong> <code>1</code>, <code>2</code>, and <code>3</code> until those names are confirmed.</li>
-<li>Current code uses blade verified flags for SME image verification. Those flags correctly align with <strong>Completed Blade Review</strong>, not <strong>Completed Blade Inspection</strong>.</li>
-</ul>
-<section class="article-section" id="missing-from-code"><div class="section-kicker">Missing From Code</div><h2>Missing From Code</h2></section>
-<ul class="rule-list">
-<li><strong>Blade Inspection</strong> is not yet modeled as a first-class submitted inspection per blade; the app currently works mostly with blade image uploads and SME image verification.</li>
-<li><strong>Submit Blade Inspection</strong> is not implemented as a per-blade Inspector action.</li>
-<li>Automatic <strong>Blade Review</strong> start from submitted <strong>Blade Inspection</strong> is not implemented as a canonical workflow transition.</li>
-<li><strong>SME Review Queue</strong> is not implemented as a canonical shared queue for automatically started <strong>Blade Reviews</strong>.</li>
-<li><strong>Claim Blade Review</strong> is not implemented as a lock/accountability action that prevents concurrent SME review.</li>
-<li><strong>Release Blade Review Claim</strong> is not implemented for SME self-release before annotation or operational release after annotation.</li>
-<li><strong>Blade Inspection Status</strong> values such as <code>Ready to Submit</code>, <code>Inspection Complete</code>, and <code>Returned for Correction</code> are not implemented as canonical inspection states.</li>
-<li><strong>Completed Blade Inspection</strong> is not stored or derived from Inspector submission; current turbine blade verified flags represent <strong>Completed Blade Review</strong> instead.</li>
-<li><strong>Inspection Return</strong> with required <strong>Inspection Remarks</strong> by <strong>Admin</strong>, <strong>Site Manager</strong>, or <strong>Project Manager</strong> is not implemented.</li>
-<li><strong>Turbine Inspection Status</strong> is not yet derived from <strong>Blade Inspection Status</strong>, including the <code>Returned for Correction</code> rollup.</li>
-<li>The three required blade images per <strong>Blade Inspection</strong> are not enforced as a submit rule; uploads currently accept multiple images for a blade.</li>
-<li><strong>Required Blade Image Slot</strong> is not modeled or enforced in code.</li>
-<li><strong>Blade Review Status</strong> and <strong>Blade Review Rollup</strong> are not implemented with the canonical terminal wording <code>Review Complete</code> decoupled from downstream <strong>Finding</strong> creation.</li>
-<li><strong>Image Review Status</strong> is not implemented as a canonical per-image SME completion mark independent of <strong>Defect Annotations</strong>.</li>
-<li><strong>No Findings</strong> is not implemented as downstream Finding result language separate from review completion status.</li>
-<li><strong>Defect Annotation</strong> creation is not restricted to the <strong>SME</strong> boundary; current permissions allow non-SME roles to save blade defects.</li>
-<li><strong>Finding</strong> creation and submission are not restricted to the <strong>SME</strong> boundary; current permissions allow operational roles to create or submit Findings.</li>
-<li><strong>Create Finding</strong> from selected exact <strong>Defect Annotations</strong> is not implemented as a clear canonical SME action.</li>
-<li><strong>Changes Requested</strong> is not implemented as the non-terminal Finding return path; current code uses <code>REJECTED</code>.</li>
-<li><strong>Archived Finding</strong> is not implemented as the terminal Finding stop path.</li>
-<li><strong>Finding Status</strong> uses code values such as <code>UNDER_REVIEW</code> and <code>REJECTED</code> instead of canonical <code>Submitted</code> and <code>Changes Requested</code>.</li>
-<li><strong>Finding</strong> references currently point to defect/image records, but not clearly to exact <strong>Defect Annotations</strong> as canonical domain objects.</li>
-<li>The one-<strong>Defect Annotation</strong>-to-at-most-one-<strong>Finding</strong> traceability rule is not enforced.</li>
-<li>The one-active-<strong>Work Order</strong>-per-<strong>Finding</strong> rule is not clearly enforced as domain language.</li>
-<li><strong>Repair Evidence</strong> exists only as generic Work Order proof upload language, not as canonical domain language.</li>
-<li><strong>Repair Evidence</strong> does not enforce required completion photo plus completion note before Technician submission.</li>
-<li><strong>Repair Review</strong> by <strong>SME</strong> is not implemented as a workflow step between Technician completion and <strong>Work Order Verification</strong>.</li>
-<li><strong>Repair Review Status</strong> values <code>Pending Review</code>, <code>Repair Review Complete</code>, and <code>Rework Required</code> are not implemented.</li>
-<li>Default rework routing back to the same <strong>Technician</strong> after <code>Rework Required</code> is not implemented.</li>
-<li><strong>Work Order Verification</strong> is not blocked on completed <strong>Repair Review</strong> in code.</li>
-<li><strong>Closure Evidence</strong> for non-repair <strong>Operational Decisions</strong> is not modeled separately from repair proof.</li>
-<li>Conditional <strong>Repair Review</strong> requirements based on <strong>Operational Decision</strong> are not implemented.</li>
-<li><strong>Reinspect</strong> does not create or schedule a future <strong>Blade Inspection</strong> in code.</li>
-<li><strong>Monitor</strong> is not modeled as an open <strong>Finding</strong> tracking state with a required review date or monitoring window.</li>
-<li><strong>Defer</strong> is not modeled with required defer reason and target date.</li>
-<li><strong>Pending Operational Review</strong> is not implemented for non-repair <strong>Work Orders</strong>.</li>
-<li><strong>Operational Decision Change</strong> is not implemented as an audited change path for open <strong>Work Orders</strong>.</li>
-<li><strong>Work Order Status</strong> does not match the canonical lifecycle, especially <code>Pending Repair Review</code>, <code>Rework Required</code>, <code>Pending Work Order Verification</code>, <code>Pending Operational Review</code>, and <code>Archived</code>.</li>
-<li><strong>Work Order Verification</strong> currently has no <strong>Admin</strong> fallback permission in code.</li>
-<li><strong>Work Order Verification Status</strong> is not modeled with canonical <code>Accepted</code> and <code>Sent Back</code> outcome language.</li>
-<li><strong>Site Manager</strong> cannot currently create <strong>Work Orders</strong> in code, even though the domain language allows Site Manager, Project Manager, or Admin.</li>
-<li><strong>Turbine Health Status</strong> is not modeled or derived as <code>Healthy</code> after reviews, Findings, Work Orders, Repair Reviews, and <strong>Work Order Verification</strong> settle.</li>
-<li><strong>Turbine Health Status</strong> values <code>Unknown</code>, <code>Healthy</code>, <code>Findings Present</code>, <code>Work In Progress</code>, and <code>Pending Reinspection</code> are not implemented as a derived rollup.</li>
-<li><strong>Turbine Health Status</strong> priority order is not implemented.</li>
-<li>Retired <strong>Action Case</strong> and <strong>Closure Review</strong> language still appears in frontend copy or older implementation artifacts and needs cleanup.</li>
-</ul>
-        <footer>Generated from CONTEXT.md using the Editorial Handbook design system.</footer>
-      </main>
-      <aside class="rail" aria-label="Reference rail">
-        <section class="rail-card accent">
-          <h2>Recommendation</h2>
-          <p>Editorial Handbook is the right system for this artifact because it is long-form domain documentation meant for reading and reference, not a matrix audit or experiment log.</p>
-        </section>
-        <section class="rail-card">
-          <h3>Major Sections</h3>
-          <a href="#language">Language</a>
-<a href="#relationships">Relationships</a>
-<a href="#example-dialogue">Example Dialogue</a>
-<a href="#flagged-ambiguities">Flagged Ambiguities</a>
-<a href="#missing-from-code">Missing From Code</a>
-        </section>
-        <section class="rail-card">
-          <h3>Glossary Index</h3>
-          <a href="#blade-evidence">Blade Evidence</a>
-<a href="#required-blade-image-slot">Required Blade Image Slot</a>
-<a href="#inspector">Inspector</a>
-<a href="#technician">Technician</a>
-<a href="#sme">SME</a>
-<a href="#finding">Finding</a>
-<a href="#finding-status">Finding Status</a>
-<a href="#blade-review">Blade Review</a>
-<a href="#blade-review-status">Blade Review Status</a>
-<a href="#image-review-status">Image Review Status</a>
-<a href="#sme-review-queue">SME Review Queue</a>
-<a href="#claim-blade-review">Claim Blade Review</a>
-<a href="#release-blade-review-claim">Release Blade Review Claim</a>
-<a href="#defect-annotation">Defect Annotation</a>
-<a href="#create-finding">Create Finding</a>
-<a href="#no-findings">No Findings</a>
-<a href="#project-manager">Project Manager</a>
-<a href="#managed-site">Managed Site</a>
-<a href="#site-manager">Site Manager</a>
-<a href="#admin">Admin</a>
-<a href="#super-admin">Super Admin</a>
-<a href="#company">Company</a>
-<a href="#site">Site</a>
-<a href="#turbine">Turbine</a>
-<a href="#blade">Blade</a>
-<a href="#turbine-inspection">Turbine Inspection</a>
-<a href="#blade-inspection">Blade Inspection</a>
-<a href="#blade-inspection-status">Blade Inspection Status</a>
-<a href="#submit-blade-inspection">Submit Blade Inspection</a>
-<a href="#inspection-return">Inspection Return</a>
-<a href="#inspection-remarks">Inspection Remarks</a>
-<a href="#completed-blade-inspection">Completed Blade Inspection</a>
-<a href="#completed-turbine-inspection">Completed Turbine Inspection</a>
-<a href="#turbine-inspection-status">Turbine Inspection Status</a>
-<a href="#completed-blade-review">Completed Blade Review</a>
-<a href="#blade-review-rollup">Blade Review Rollup</a>
-<a href="#finding-approval">Finding Approval</a>
-<a href="#changes-requested">Changes Requested</a>
-<a href="#archived-finding">Archived Finding</a>
-<a href="#work-order">Work Order</a>
-<a href="#work-order-status">Work Order Status</a>
-<a href="#work-order-creation">Work Order Creation</a>
-<a href="#repair-evidence">Repair Evidence</a>
-<a href="#repair-review">Repair Review</a>
-<a href="#repair-review-status">Repair Review Status</a>
-<a href="#operational-decision">Operational Decision</a>
-<a href="#operational-decision-change">Operational Decision Change</a>
-<a href="#reinspect">Reinspect</a>
-<a href="#monitor">Monitor</a>
-<a href="#defer">Defer</a>
-<a href="#closure-evidence">Closure Evidence</a>
-<a href="#pending-operational-review">Pending Operational Review</a>
-<a href="#work-order-verification">Work Order Verification</a>
-<a href="#work-order-verification-status">Work Order Verification Status</a>
-<a href="#turbine-health-status">Turbine Health Status</a>
-        </section>
-      </aside>
-    </div>
+        <article class="doc-card">
+          <div class="meta-row">
+            <span class="pill public">Public</span>
+            <span class="pill source">Editorial Handbook</span>
+          </div>
+          <a class="title" href="./atom-v1-prd/">ATOM V1 Combined PRD</a>
+          <p>The combined backend and frontend PRD, aligned to the canonical workflow and current implementation gaps found in both child repos.</p>
+          <div class="actions">
+            <a href="./atom-v1-prd/">Open page</a>
+            <a href="https://github.com/Satwik-aflo/atom-context-handbook/blob/main/atom-v1-prd/index.html">View source in Pages repo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="rules" class="panel">
+      <h2>Update Rules</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Required action</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>A new public HTML artifact is created</td>
+              <td>Add a card to this hub, publish the artifact under its own route, then republish this root <code>index.html</code>.</td>
+              <td>The root page should remain the single doorway to all generated docs.</td>
+            </tr>
+            <tr>
+              <td>An existing public HTML artifact is renamed or moved</td>
+              <td>Update the card link, source link, title, and route in this hub.</td>
+              <td>Old links should not quietly go stale.</td>
+            </tr>
+            <tr>
+              <td>A local-only HTML experiment should not be public</td>
+              <td>Do not add it here unless the user explicitly approves public publishing.</td>
+              <td>The Pages repo is public.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <p><strong>Publishing rule:</strong> public docs live in <code>Satwik-aflo/atom-context-handbook</code>. Keep source copies in <code>E:\Github\Atom\docs\website-documentation\</code> before publishing.</p>
+      </div>
+    </section>
+
+    <section id="sources" class="panel">
+      <h2>Local Source Map</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Local source</th>
+              <th>Public route</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Documentation hub</td>
+              <td><code>docs/website-documentation/index.html</code></td>
+              <td><code>/atom-context-handbook/</code></td>
+            </tr>
+            <tr>
+              <td>ATOM Context Handbook</td>
+              <td><code>CONTEXT.html</code></td>
+              <td><code>/atom-context-handbook/context-handbook/</code></td>
+            </tr>
+            <tr>
+              <td>ATOM V1 Combined PRD</td>
+              <td><code>docs/website-documentation/atom-v1-prd/index.html</code></td>
+              <td><code>/atom-context-handbook/atom-v1-prd/</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 </body>
 </html>
