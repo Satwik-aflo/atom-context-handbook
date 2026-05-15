@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATOM V1 Combined PRD</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fa;
+      --paper: #ffffff;
+      --ink: #20272e;
+      --muted: #5e6a73;
+      --line: #dbe2e8;
+      --accent: #b94a48;
+      --teal: #138a7e;
+      --blue: #1769aa;
+      --gold: #b7791f;
+      --green: #2f7d52;
+      --shadow: 0 18px 50px rgba(32, 39, 46, 0.1);
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.62;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef3f6;
+      color: #21313a;
+      font-family: var(--mono);
+      font-size: 0.92em;
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 24px 90px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: -24px -24px 34px;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(32, 39, 46, 0.14);
+      background: rgba(245, 247, 250, 0.94);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar strong {
+      color: var(--ink);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .topbar nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .topbar a {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .panel,
+    .card,
+    .toc,
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 38px;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 18px 0 18px;
+      font-family: var(--serif);
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 810px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-side {
+      display: grid;
+      align-content: center;
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .label {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 9px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .label::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: currentColor;
+      content: "";
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 26px;
+      padding: 14px;
+      box-shadow: none;
+    }
+
+    .toc a {
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8fafc;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    main {
+      display: grid;
+      gap: 22px;
+      min-width: 0;
+    }
+
+    aside.rail {
+      position: sticky;
+      top: 86px;
+      display: grid;
+      gap: 14px;
+    }
+
+    section.panel {
+      padding: 28px;
+    }
+
+    h2,
+    h3 {
+      font-family: var(--serif);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 38px;
+    }
+
+    h3 {
+      margin: 22px 0 10px;
+      font-size: 25px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 18px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      min-width: 0;
+      padding: 18px;
+      box-shadow: none;
+    }
+
+    .card h3,
+    .card h4 {
+      margin-top: 0;
+    }
+
+    .card h4,
+    .note h4 {
+      margin: 0 0 7px;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .metric {
+      display: grid;
+      gap: 4px;
+    }
+
+    .metric strong {
+      font-family: var(--serif);
+      font-size: 38px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    table {
+      width: 100%;
+      min-width: 840px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3f6;
+      color: #394752;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .status.done {
+      background: #e8f5ee;
+      color: var(--green);
+    }
+
+    .status.gap {
+      background: #fff3df;
+      color: var(--gold);
+    }
+
+    .status.bad {
+      background: #fae9e7;
+      color: var(--accent);
+    }
+
+    .workflow {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin: 16px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .workflow li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      margin: 0;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .workflow li::before {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #ffffff;
+      content: counter(step);
+      font-weight: 900;
+    }
+
+    .workflow strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .note {
+      padding: 16px;
+      box-shadow: none;
+    }
+
+    .note.critical {
+      border-left: 5px solid var(--accent);
+    }
+
+    .note.info {
+      border-left: 5px solid var(--teal);
+    }
+
+    .note ul {
+      margin-bottom: 0;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1000px) {
+      .hero,
+      .layout,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      aside.rail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        padding: 18px 14px 72px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        margin: -18px -14px 24px;
+        padding: 12px 14px;
+      }
+
+      .topbar nav {
+        justify-content: flex-start;
+      }
+
+      .hero-main,
+      .hero-side,
+      section.panel {
+        padding: 20px;
+      }
+
+      .grid,
+      .grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 31px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <strong>Aflo ATOM PRD</strong>
+      <nav aria-label="Page navigation">
+        <a href="#snapshot">Snapshot</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#backend">Backend</a>
+        <a href="#frontend">Frontend</a>
+        <a href="#slices">Slices</a>
+        <a href="#acceptance">Acceptance</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-main">
+        <span class="label">Editorial Handbook</span>
+        <h1>ATOM V1 Combined Product Requirements</h1>
+        <p>This combined PRD aligns the backend and frontend around the canonical ATOM workflow: Blade Evidence, Blade Inspection, Blade Review, Defect Annotations, Findings, Work Orders, Repair Evidence, Repair Review, Work Order Verification, and derived Turbine Health Status.</p>
+      </div>
+      <aside class="hero-side">
+        <div class="metric">
+          <strong>2</strong>
+          <span>Repos aligned</span>
+        </div>
+        <div class="metric">
+          <strong>12</strong>
+          <span>Canonical workflow stages</span>
+        </div>
+        <div class="metric">
+          <strong>9</strong>
+          <span>Implementation slices</span>
+        </div>
+        <p class="small">Generated from backend and frontend PRDs refreshed on 2026-05-15. `CONTEXT.md` remains the source of truth.</p>
+      </aside>
+    </section>
+
+    <nav class="toc" aria-label="Document sections">
+      <a href="#snapshot">Current Snapshot</a>
+      <a href="#workflow">Canonical Workflow</a>
+      <a href="#shared-problem">Shared Problem</a>
+      <a href="#backend">Backend PRD</a>
+      <a href="#frontend">Frontend PRD</a>
+      <a href="#slices">Cross-Repo Slices</a>
+      <a href="#testing">Testing</a>
+      <a href="#acceptance">Acceptance</a>
+    </nav>
+
+    <div class="layout">
+      <main>
+        <section id="snapshot" class="panel">
+          <h2>Current Snapshot</h2>
+          <p>The product already has meaningful workflow foundations in both repos, but the implementation still mixes old terms and combines boundaries that the domain session separated.</p>
+
+          <div class="grid three">
+            <article class="card">
+              <span class="status done">Mostly aligned</span>
+              <h3>Foundation exists</h3>
+              <p>Blade Evidence upload, Defect Annotation UI/storage, Findings, Work Orders, proof upload, audit history, and offline sync foundations are present.</p>
+            </article>
+            <article class="card">
+              <span class="status gap">Needs correction</span>
+              <h3>Boundaries are blurred</h3>
+              <p>Blade Inspection and Blade Review are still conflated, Repair Review is missing, and final Work Order Verification still uses legacy repair-verification semantics.</p>
+            </article>
+            <article class="card">
+              <span class="status bad">High risk</span>
+              <h3>Permissions drift</h3>
+              <p>Finding creation and Defect Annotation actions are too broad. Canonically, SMEs create Defect Annotations and Findings; operational roles approve and verify.</p>
+            </article>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Backend state</th>
+                  <th>Frontend state</th>
+                  <th>Target</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Blade Evidence</td>
+                  <td>Upload, S3 ingest, EXIF, site/turbine/blade scoping exist.</td>
+                  <td>Per-turbine and per-blade upload exists, including offline queue foundation.</td>
+                  <td>Keep as foundation, then add first-class Blade Inspection submit/return.</td>
+                </tr>
+                <tr>
+                  <td>Blade Inspection</td>
+                  <td>Missing first-class model/status and submit action.</td>
+                  <td>Missing Ready to Submit, Inspection Complete, Returned for Correction UI.</td>
+                  <td>Per-blade field submission by Inspector with required Blade Evidence slots.</td>
+                </tr>
+                <tr>
+                  <td>Blade Review</td>
+                  <td>Implemented through verification flags rather than canonical review status.</td>
+                  <td>Uses Verify/Verified language and broad review access.</td>
+                  <td>SME-owned Review Complete flow with queue and claim/release.</td>
+                </tr>
+                <tr>
+                  <td>Finding</td>
+                  <td>Exists, but statuses and creation permissions are noncanonical.</td>
+                  <td>Exists, but creation is too broad and exact annotation traceability is weak.</td>
+                  <td>SME creates/submits Findings from selected Defect Annotations.</td>
+                </tr>
+                <tr>
+                  <td>Work Order</td>
+                  <td>Turbine-scoped creation from approved Findings exists, but Site Manager creation is missing.</td>
+                  <td>Same-turbine wizard exists, but Site Manager creation and canonical statuses are missing.</td>
+                  <td>Site Manager, Project Manager, or Admin creates turbine-scoped Work Orders.</td>
+                </tr>
+                <tr>
+                  <td>Repair Review</td>
+                  <td>Missing separate SME gate.</td>
+                  <td>Missing separate SME queue/actions.</td>
+                  <td>SME reviews Repair Evidence before Work Order Verification.</td>
+                </tr>
+                <tr>
+                  <td>Work Order Verification</td>
+                  <td>Legacy verified/rework endpoint exists, Admin fallback missing.</td>
+                  <td>Verify Repair language and legacy outcomes remain.</td>
+                  <td>Operational Accepted/Sent Back sign-off by Site Manager, Project Manager, or Admin.</td>
+                </tr>
+                <tr>
+                  <td>Turbine Health Status</td>
+                  <td>Missing derived rollup.</td>
+                  <td>Missing dashboard/read-model display.</td>
+                  <td>Derived status with priority: Work In Progress, Pending Reinspection, Findings Present, Healthy, Unknown.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="workflow" class="panel">
+          <h2>Canonical Workflow</h2>
+          <p>This is the workflow both repos should implement and display. Each step has a distinct accountability owner.</p>
+          <ol class="workflow">
+            <li><div><strong>Blade Inspection</strong><span class="muted">Inspector captures required Blade Evidence for one blade on one turbine.</span></div></li>
+            <li><div><strong>Submit Blade Inspection</strong><span class="muted">Inspector confirms the evidence is complete and ready for SME review.</span></div></li>
+            <li><div><strong>Blade Review</strong><span class="muted">SME reviews every required image and marks Image Review Status as Review Complete.</span></div></li>
+            <li><div><strong>Defect Annotation</strong><span class="muted">SME marks and classifies reportable evidence regions only where defects exist.</span></div></li>
+            <li><div><strong>Create Finding</strong><span class="muted">SME creates a formal Finding from selected Defect Annotations.</span></div></li>
+            <li><div><strong>Finding Approval</strong><span class="muted">Site Manager normally approves; Project Manager and Admin are fallback or coordination roles.</span></div></li>
+            <li><div><strong>Work Order</strong><span class="muted">Operational owner groups approved Findings on the same turbine into one Work Order.</span></div></li>
+            <li><div><strong>Operational Decision</strong><span class="muted">Work Order carries repair, replace, monitor, reinspect, defer, or escalate vendor decision.</span></div></li>
+            <li><div><strong>Repair Evidence</strong><span class="muted">Technician executes physical work and uploads completion proof.</span></div></li>
+            <li><div><strong>Repair Review</strong><span class="muted">SME reviews Repair Evidence and marks complete or rework required.</span></div></li>
+            <li><div><strong>Work Order Verification</strong><span class="muted">Site Manager, Project Manager, or Admin accepts or sends back the Work Order.</span></div></li>
+            <li><div><strong>Turbine Health Status</strong><span class="muted">System derives turbine condition from review, Finding, Work Order, repair, verification, and reinspection state.</span></div></li>
+          </ol>
+        </section>
+
+        <section id="shared-problem" class="panel">
+          <h2>Shared Problem</h2>
+          <p>Wind turbine inspection and repair teams need ATOM to preserve the full evidence-to-repair chain without blurring accountability. Current backend and frontend foundations are useful, but they still combine field capture, SME review, operational approval, repair execution, and final verification in places where the canonical domain model separates them.</p>
+          <div class="grid">
+            <article class="card">
+              <h3>User-facing confusion</h3>
+              <p>Operators cannot always tell whether a status means field inspection completion, SME review completion, formal Finding approval, repair completion, or final operational verification.</p>
+            </article>
+            <article class="card">
+              <h3>Audit risk</h3>
+              <p>If Defect Annotations, Findings, Work Orders, Repair Evidence, Repair Review, and Work Order Verification are not linked cleanly, the system cannot produce a defensible operational record.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="backend" class="panel">
+          <h2>Backend PRD</h2>
+          <p>The backend should become the source of enforced workflow truth: state machines, permissions, transitions, traceability, audit history, and derived Turbine Health Status.</p>
+
+          <h3>Backend work to add or correct</h3>
+          <div class="grid">
+            <article class="card">
+              <h4>Blade Inspection and Review</h4>
+              <ul>
+                <li>Add first-class Blade Inspection state and per-blade submission.</li>
+                <li>Enforce Required Blade Image Slot completion before submission.</li>
+                <li>Add Inspection Return with required remarks.</li>
+                <li>Start Blade Review automatically after submission.</li>
+                <li>Add SME Review Queue and claim/release behavior.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Finding Traceability</h4>
+              <ul>
+                <li>Restrict Defect Annotation creation to SME during Blade Review.</li>
+                <li>Restrict Finding creation/submission to SME.</li>
+                <li>Store exact Defect Annotation references on Findings.</li>
+                <li>Enforce one annotation to at most one Finding.</li>
+                <li>Add canonical Finding statuses and legacy status mapping.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Work Orders</h4>
+              <ul>
+                <li>Add Site Manager and Admin fallback where canonical role rules require them.</li>
+                <li>Keep Work Orders turbine-scoped and require approved Findings.</li>
+                <li>Keep Operational Decision on the Work Order.</li>
+                <li>Add Pending Operational Review and Operational Decision Change.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Repair and Verification</h4>
+              <ul>
+                <li>Promote proof upload to canonical Repair Evidence.</li>
+                <li>Add SME Repair Review before Work Order Verification.</li>
+                <li>Add Repair Review Complete and Rework Required outcomes.</li>
+                <li>Add Work Order Verification outcomes: Accepted and Sent Back.</li>
+                <li>Derive Turbine Health Status with canonical priority order.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="frontend" class="panel">
+          <h2>Frontend PRD</h2>
+          <p>The frontend should make accountability visible: who captures, who reviews, who creates Findings, who approves, who executes, who performs Repair Review, and who verifies the Work Order.</p>
+
+          <h3>Frontend work to add or correct</h3>
+          <div class="grid">
+            <article class="card">
+              <h4>Inspector Experience</h4>
+              <ul>
+                <li>Show required Blade Evidence slots by blade.</li>
+                <li>Show Ready to Submit, Inspection Complete, and Returned for Correction.</li>
+                <li>Add Submit Blade Inspection per blade.</li>
+                <li>Show Inspection Remarks for returned evidence.</li>
+                <li>Keep Finding language out of field capture.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>SME Experience</h4>
+              <ul>
+                <li>Add SME Review Queue and claim/release controls.</li>
+                <li>Replace Verify/Verified language with Review Complete.</li>
+                <li>Allow clean image review completion with no Defect Annotations.</li>
+                <li>Require exact Defect Annotation selection for Finding creation.</li>
+                <li>Add Repair Review queue and actions.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Operational Experience</h4>
+              <ul>
+                <li>Show Finding Approval to Site Manager, Project Manager, and Admin.</li>
+                <li>Add Changes Requested and Archived display paths.</li>
+                <li>Add Site Manager Work Order creation.</li>
+                <li>Prevent cross-turbine Finding grouping.</li>
+                <li>Show Pending Operational Review for non-repair decisions.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h4>Verification and Health</h4>
+              <ul>
+                <li>Rename proof upload to Repair Evidence where appropriate.</li>
+                <li>Rename final verification to Work Order Verification.</li>
+                <li>Use Accepted and Sent Back outcomes.</li>
+                <li>Add Admin fallback where backend permits it.</li>
+                <li>Display derived Turbine Health Status after backend support lands.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="slices" class="panel">
+          <h2>Cross-Repo Implementation Slices</h2>
+          <p>These are the recommended slices for implementation agents. Each slice should ship backend behavior, frontend behavior, and tests together where feasible.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Slice</th>
+                  <th>Backend responsibility</th>
+                  <th>Frontend responsibility</th>
+                  <th>Acceptance marker</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Blade Inspection submit/return</td>
+                  <td>Model/status, required slots, submit transition, return with remarks.</td>
+                  <td>Slot UI, submit action, returned state, remarks display.</td>
+                  <td>Inspector can submit per blade and correct returned evidence.</td>
+                </tr>
+                <tr>
+                  <td>SME Review Queue</td>
+                  <td>Automatic Blade Review start, site queue, claim/release lock.</td>
+                  <td>Queue screen, claim state, claimed-by display, release controls.</td>
+                  <td>Only one SME can actively work on a claimed Blade Review.</td>
+                </tr>
+                <tr>
+                  <td>Blade Review status</td>
+                  <td>Image Review Status and Blade Review Status.</td>
+                  <td>Review Complete UI replaces Verify/Verified labels.</td>
+                  <td>Review can complete with no Findings.</td>
+                </tr>
+                <tr>
+                  <td>Finding traceability</td>
+                  <td>SME-only annotations/findings, exact annotation refs, one-to-one rule.</td>
+                  <td>Exact annotation picker and SME-only creation controls.</td>
+                  <td>Finding evidence trail is exact and duplicate-safe.</td>
+                </tr>
+                <tr>
+                  <td>Finding Approval</td>
+                  <td>Submitted, Changes Requested, Approved, Archived behavior.</td>
+                  <td>Operational approval actions and editable return path.</td>
+                  <td>SME cannot approve; operational roles can request changes.</td>
+                </tr>
+                <tr>
+                  <td>Work Order lifecycle</td>
+                  <td>Canonical statuses, Site Manager creation, Operational Decision behavior.</td>
+                  <td>Work Order creation and status labels aligned to canonical language.</td>
+                  <td>One turbine, one decision, approved Findings only.</td>
+                </tr>
+                <tr>
+                  <td>Repair Evidence and Repair Review</td>
+                  <td>Repair Evidence requirements, Repair Review status, rework routing.</td>
+                  <td>Repair Evidence upload, SME Repair Review UI, rework remarks.</td>
+                  <td>Physical-work Work Orders pass through SME Repair Review.</td>
+                </tr>
+                <tr>
+                  <td>Work Order Verification</td>
+                  <td>Accepted/Sent Back outcomes, Admin fallback, linked Finding closure.</td>
+                  <td>Verification UI for operational roles with canonical outcomes.</td>
+                  <td>SME and Technician cannot perform final verification.</td>
+                </tr>
+                <tr>
+                  <td>Turbine Health Status</td>
+                  <td>Derived rollup and priority ordering.</td>
+                  <td>Dashboard/read-model display and explanation.</td>
+                  <td>Status is derived, not manually edited.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="testing" class="panel">
+          <h2>Testing Decisions</h2>
+          <div class="split">
+            <article class="card">
+              <h3>Backend</h3>
+              <p>Backend tests should verify externally visible API behavior and persisted state. Use existing Jest, supertest, mongodb-memory-server, workflow command bus, and separation-of-duties patterns.</p>
+              <ul>
+                <li>Blade Inspection submission and return.</li>
+                <li>Blade Review claim behavior.</li>
+                <li>Defect Annotation to Finding traceability.</li>
+                <li>Finding Approval and Changes Requested.</li>
+                <li>Work Order creation and Operational Decision.</li>
+                <li>Repair Evidence, Repair Review, and verification.</li>
+                <li>Derived Turbine Health Status and audit history.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Frontend</h3>
+              <p>Frontend tests should verify what users see and can do: labels, actions by role, disabled states, route access, API calls, and visible state transitions.</p>
+              <ul>
+                <li>Inspector slot and submit UI.</li>
+                <li>SME queue, claim, and review completion UI.</li>
+                <li>SME-only Finding creation from annotations.</li>
+                <li>Operational Finding Approval actions.</li>
+                <li>Work Order creation and technician execution.</li>
+                <li>Repair Review and Work Order Verification.</li>
+                <li>Retired term absence in visible copy and i18n.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="acceptance" class="panel">
+          <h2>Acceptance Criteria</h2>
+          <div class="note critical">
+            <h4>Non-negotiable language rules</h4>
+            <p>Do not use Action Case, Closure Review, Inspection Note, Turbine Review, Pilot, SME approval, or SME verification as current product language. Historical notes may mention them only to explain that they are retired.</p>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h3>Domain correctness</h3>
+              <ul>
+                <li>Blade Inspection is field capture and submission.</li>
+                <li>Blade Review is SME review of one blade.</li>
+                <li>Defect Annotation is not a Finding.</li>
+                <li>Finding creation is downstream of Blade Review.</li>
+                <li>Work Order is turbine-scoped.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Role boundaries</h3>
+              <ul>
+                <li>Inspector captures Blade Evidence and does not create Findings.</li>
+                <li>SME reviews, annotates, creates Findings, and performs Repair Review.</li>
+                <li>Site Manager, Project Manager, and Admin approve Findings and verify Work Orders.</li>
+                <li>Technician executes Work Orders and uploads Repair Evidence.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Status clarity</h3>
+              <ul>
+                <li>Blade Review terminal status is Review Complete.</li>
+                <li>Finding returns use Changes Requested.</li>
+                <li>Work Order physical work passes through Pending Repair Review.</li>
+                <li>Final verification uses Accepted or Sent Back.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Operational outcome</h3>
+              <ul>
+                <li>Repair Evidence and Repair Review are separate from Blade Evidence and Blade Review.</li>
+                <li>Monitor, Defer, and Reinspect can remain Pending Operational Review.</li>
+                <li>Turbine Health Status is derived from underlying workflow state.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <aside class="rail" aria-label="Document notes">
+        <section class="note info">
+          <h4>Source Files</h4>
+          <ul>
+            <li>Backend: `Aflo-ATOM-backend/plans/PRD-V1-ATOM.md`</li>
+            <li>Frontend: `Aflo-ATOM-frontend/plans/prd-v1.md`</li>
+            <li>Frontend audit: `Aflo-ATOM-frontend/plans/prd-v1-audit.md`</li>
+            <li>Domain: root `CONTEXT.md`</li>
+          </ul>
+        </section>
+        <section class="note">
+          <h4>Primary Product Sentence</h4>
+          <p>ATOM documents and governs the path from wind turbine Blade Evidence to repair execution and verified closure.</p>
+        </section>
+        <section class="note">
+          <h4>Owner Boundaries</h4>
+          <ul>
+            <li>Inspector: evidence capture.</li>
+            <li>SME: technical review and Findings.</li>
+            <li>Operations: approval and verification.</li>
+            <li>Technician: execution and Repair Evidence.</li>
+          </ul>
+        </section>
+        <section class="note">
+          <h4>Out of Scope</h4>
+          <ul>
+            <li>Multi-turbine repair campaigns.</li>
+            <li>Zero-Finding Work Orders.</li>
+            <li>Native mobile app.</li>
+            <li>SCADA integration.</li>
+            <li>Regulatory compliance certification claims.</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
